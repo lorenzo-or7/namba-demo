@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Acompanhar O.S. | Namba</title>
+<meta name="description" content="Acompanhe o status da sua ordem de serviço na Cine Camera Service / Namba.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=localStorage.getItem('namba-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body data-base="" data-page="os">
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<header id="site-header"></header>
+
+<main id="conteudo">
+  <section class="page-head">
+    <div class="wrap has-fig">
+      <div>
+      <div class="crumbs"><a href="index.html">Início</a> / Acompanhar O.S.</div>
+      <h1 id="pageTitle">Acompanhe seu conserto</h1>
+      <p id="pageLead">Digite o número da ordem de serviço e o CPF ou telefone informado na entrada do equipamento para ver em que etapa ele está.</p>
+      </div>
+      <div class="page-fig" aria-hidden="true"><span class="fig fig-camera-on-stand"></span></div>
+    </div>
+  </section>
+
+  <section class="band" style="padding-top:0">
+    <div class="wrap">
+
+      <!-- Consulta -->
+      <div id="lookupView" class="lookup-grid">
+        <form class="panel lookup-form" id="lookupForm" novalidate>
+          <div class="alert alert-error" id="lookupError" role="alert" hidden></div>
+          <div class="field">
+            <label for="numero_os">Número da O.S.</label>
+            <input id="numero_os" name="numero_os" placeholder="NAMBA-2026-0000" autocomplete="off" spellcheck="false" style="text-transform:uppercase">
+            <span class="hint">Está no comprovante de entrada e no e-mail do orçamento.</span>
+          </div>
+          <div class="field">
+            <label for="documento">CPF ou telefone cadastrado</label>
+            <input id="documento" name="documento" inputmode="numeric" autocomplete="off" placeholder="Somente números">
+            <span class="hint">O mesmo informado quando o equipamento deu entrada.</span>
+          </div>
+          <div class="field">
+            <label for="captcha" id="captchaLabel">Confirme que você não é um robô</label>
+            <div class="captcha"><span id="captchaQ" aria-hidden="true"></span><input id="captcha" name="captcha" inputmode="numeric" autocomplete="off" aria-describedby="captchaLabel"></div>
+          </div>
+          <button type="submit" class="btn btn-red btn-block">Ver status do conserto</button>
+          <p class="privacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Usamos seu CPF apenas para localizar a O.S. Esta consulta não fica registrada.</p>
+        </form>
+
+        <div class="lookup-side">
+          <div class="proto" id="protoBox">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/></svg>
+            <div>
+              <strong>Protótipo com dados fictícios.</strong> Clique em um exemplo para preencher:
+              <div style="display:grid;gap:8px;margin-top:10px">
+                <span><code data-os="NAMBA-2026-0041" data-doc="52601815906">NAMBA-2026-0041</code> em reparo</span>
+                <span><code data-os="NAMBA-2026-0042" data-doc="11976540098">NAMBA-2026-0042</code> aguardando peças (por telefone)</span>
+                <span><code data-os="NAMBA-2026-0038" data-doc="1132104455">NAMBA-2026-0038</code> enviado ao cliente</span>
+              </div>
+              <p style="margin-top:10px">O limite é de 5 consultas a cada 10 minutos. <button type="button" class="btn-ghost" id="resetRate" style="border:0;background:none;color:inherit;font:inherit;cursor:pointer;padding:0">Zerar limite da demo</button></p>
+            </div>
+          </div>
+          <div>
+            <h2>Não encontrou?</h2>
+            <p style="margin-top:8px">Confira se o número está completo, com o ano. Se o equipamento foi deixado por uma empresa, use o telefone cadastrado. Ainda com dúvida, ligue para <a href="tel:+551132597888">(11) 3259-7888</a> ou fale pelo <a href="https://whats.link/namba" target="_blank" rel="noopener">WhatsApp</a>.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resultado -->
+      <div id="resultView" class="result" hidden></div>
+    </div>
+  </section>
+</main>
+
+<footer id="site-footer"></footer>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/masks.js"></script>
+<script src="assets/js/demo-db.js"></script>
+<script>
+(function () {
+  var DB = window.NambaDB, esc = DB.esc;
+  var form = document.getElementById('lookupForm');
+  var err = document.getElementById('lookupError');
+  var lookupView = document.getElementById('lookupView');
+  var resultView = document.getElementById('resultView');
+  var title = document.getElementById('pageTitle'), lead = document.getElementById('pageLead');
+  var titleText = title.textContent, leadText = lead.textContent;
+
+  function newCaptcha() {
+    var q = DB.gerarCaptcha();
+    document.getElementById('captchaQ').textContent = q[0] + ' + ' + q[1] + ' =';
+    document.getElementById('captchaLabel').textContent = 'Quanto é ' + q[0] + ' + ' + q[1] + '?';
+    form.elements.captcha.value = '';
+  }
+  newCaptcha();
+
+  try {
+    var pre = sessionStorage.getItem('namba-os-prefill');
+    if (pre) { form.elements.numero_os.value = pre; sessionStorage.removeItem('namba-os-prefill'); form.elements.documento.focus(); }
+  } catch (e) {}
+
+  document.getElementById('protoBox').addEventListener('click', function (e) {
+    var c = e.target.closest('code[data-os]');
+    if (!c) return;
+    form.elements.numero_os.value = c.dataset.os;
+    form.elements.documento.value = c.dataset.doc;
+    form.elements.captcha.focus();
+  });
+  document.getElementById('resetRate').addEventListener('click', function () {
+    DB.rateLimitZerar(); showError('');
+  });
+
+  function showError(text) { err.textContent = text; err.hidden = !text; }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (DB.rateLimitBloqueado()) {
+      var m = DB.rateLimitLiberaEm();
+      showError('Muitas consultas em pouco tempo. Tente de novo em ' + m + (m === 1 ? ' minuto.' : ' minutos.'));
+      newCaptcha(); return;
+    }
+    DB.rateLimitRegistrar(); // toda tentativa conta, como no servidor
+    if (!DB.validarCaptcha(form.elements.captcha.value)) {
+      showError('A soma da verificação não confere. Faça a conta de novo.');
+      newCaptcha(); form.elements.captcha.focus(); return;
+    }
+    var r = DB.consultarPublico(form.elements.numero_os.value, form.elements.documento.value);
+    if (!r) {
+      // Mensagem genérica: não revela qual dos dois campos está errado.
+      showError('Não encontramos uma O.S. com esses dados. Confira o número e o CPF ou telefone.');
+      newCaptcha(); return;
+    }
+    showError('');
+    render(r);
+  });
+
+  var STAGES = ['Recebido', 'Análise técnica', 'Orçamento', 'Reparo', 'Devolução'];
+
+  function render(r) {
+    var o = r.os, c = r.cliente, stage = DB.statusStage(o.status_atual);
+    var done = o.status_atual === 'finalizado' || o.status_atual === 'enviado';
+    var track = stage < 0
+      ? '<div class="alert alert-error" style="background:var(--st-cancel-bg);color:var(--st-cancel);border-color:var(--line)">Esta ordem de serviço foi cancelada. Veja o motivo no histórico abaixo.</div>'
+      : '<ol class="track" aria-label="Etapas do conserto">' + STAGES.map(function (s, i) {
+          var cls = i < stage || (done && i === stage) ? 'done' : i === stage ? 'current' : '';
+          return '<li class="' + cls + '"' + (cls === 'current' ? ' aria-current="step"' : '') + '>' + s + '</li>';
+        }).join('') + '</ol>';
+
+    var fields = [
+      ['Cliente', esc(c.nome)],
+      ['CPF', esc(c.cpf ? DB.maskCpf(c.cpf) : '—')],
+      ['Número de série', esc(DB.maskSerial(o.numero_serie))],
+      ['Data de entrada', DB.formatDateBr(o.data_entrada)]
+    ];
+    if (o.valor_orcamento !== null) fields.push(['Orçamento', DB.formatMoneyBr(o.valor_orcamento)]);
+    fields.push(['Última atualização', DB.formatDateTimeBr(o.atualizado_em)]);
+
+    var hist = r.historico.length ? '<ol class="history">' + r.historico.map(function (h) {
+      return '<li><time>' + DB.formatDateTimeBr(h.data_hora) + '</time><div><h3>' + esc(DB.statusLabel(h.status)) + '</h3>' + (h.descricao ? '<p>' + esc(h.descricao) + '</p>' : '') + '</div></li>';
+    }).join('') + '</ol>' : '<p class="caption">Ainda não há histórico registrado para esta O.S.</p>';
+
+    resultView.innerHTML =
+      '<div class="result-head"><div><div class="num">O.S. ' + esc(o.numero_os) + '</div><h2>' + esc(o.equipamento) + '</h2></div>' +
+      '<span class="badge ' + DB.statusClass(o.status_atual) + '">' + esc(DB.statusLabel(o.status_atual)) + '</span></div>' +
+      track +
+      '<dl class="os-fields">' + fields.map(function (f) { return '<div><dt>' + f[0] + '</dt><dd>' + f[1] + '</dd></div>'; }).join('') + '</dl>' +
+      '<div><h2 style="font-size:24px;margin-bottom:8px">Histórico</h2>' + hist + '</div>' +
+      '<div class="actions"><button type="button" class="btn btn-line" id="again">Fazer nova consulta</button>' +
+      '<a class="btn btn-ghost" href="https://whats.link/namba" target="_blank" rel="noopener">Falar sobre esta O.S. no WhatsApp</a></div>';
+
+    lookupView.hidden = true; resultView.hidden = false;
+    title.textContent = 'Status do seu conserto';
+    lead.textContent = 'Os dados pessoais aparecem mascarados para sua segurança.';
+    window.scrollTo({ top: 0 });
+    document.getElementById('again').addEventListener('click', function () {
+      form.reset(); newCaptcha();
+      resultView.hidden = true; lookupView.hidden = false;
+      title.textContent = titleText; lead.textContent = leadText;
+      form.elements.numero_os.focus();
+    });
+  }
+})();
+</script>
+</body>
+</html>

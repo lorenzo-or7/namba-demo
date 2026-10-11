@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Carta de envio | Namba</title>
+<meta name="description" content="Preencha e imprima a carta que acompanha o envio do seu equipamento para a assistência técnica autorizada Namba.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=localStorage.getItem('namba-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body data-base="" data-page="como-enviar">
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<header id="site-header"></header>
+
+<main id="conteudo">
+  <section class="page-head">
+    <div class="wrap has-fig">
+      <div>
+      <div class="crumbs"><a href="index.html">Início</a> / <a href="como-enviar.html">Como enviar</a> / Carta de envio</div>
+      <h1>Carta de envio</h1>
+      <p>Preencha os campos, imprima e coloque a folha dentro da caixa, junto com o equipamento. Nada é enviado pela internet: os dados ficam só neste navegador até você imprimir.</p>
+      </div>
+      <div class="page-fig" aria-hidden="true"><span class="fig fig-caliper-2"></span></div>
+    </div>
+  </section>
+
+  <section class="band" style="padding-top:0">
+    <div class="wrap">
+      <form class="letter" id="carta" novalidate>
+        <div class="lt-head">
+          <img src="assets/img/logo-cinecameraservice.png" width="372" height="61" alt="Cine Camera Service">
+          <address>Cine Camera Service Ltda.<br>Rua da Consolação, 331, 10º andar<br>01301-905, São Paulo – SP<br>(11) 3259-7888</address>
+        </div>
+        <h2>Carta de envio de equipamento</h2>
+        <p class="lt-sub">Imprima e envie junto com o equipamento. Não mande esta carta por e-mail.</p>
+
+        <fieldset>
+          <legend>Equipamento</legend>
+          <div class="form-grid">
+            <div class="field full"><label for="modelo_camera">Modelo da câmera ou do flash</label><input id="modelo_camera" name="modelo_camera" placeholder="Ex.: EOS R6 Mark II"></div>
+            <div class="field full"><label for="modelo_objetiva">Modelo da objetiva, se houver</label><input id="modelo_objetiva" name="modelo_objetiva" placeholder="Ex.: EF 24-70mm f/2.8L II USM"></div>
+            <div class="field full"><label for="defeitos">Resumo do defeito</label><textarea id="defeitos" name="defeitos" rows="4" placeholder="O que acontece, desde quando, e se houve queda ou contato com água."></textarea></div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Seus dados</legend>
+          <div class="form-grid">
+            <div class="field full"><label for="nome">Nome completo *</label><input id="nome" name="nome" required autocomplete="name"></div>
+            <div class="field"><label for="cpf">CPF</label><input id="cpf" name="cpf" inputmode="numeric" data-mask="cpf" placeholder="000.000.000-00"></div>
+            <div class="field"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email"></div>
+            <div class="field"><label for="fone">Telefone</label><input id="fone" name="fone" inputmode="tel" data-mask="phone" autocomplete="tel"></div>
+            <div class="field"><label for="celular">Celular</label><input id="celular" name="celular" inputmode="tel" data-mask="phone"></div>
+            <div class="field"><label for="cep">CEP</label><input id="cep" name="cep" inputmode="numeric" data-mask="cep" placeholder="00000-000" autocomplete="postal-code"><span class="cep-status" id="cepStatus" aria-live="polite"></span></div>
+            <div class="field"><label for="endereco">Endereço e número</label><input id="endereco" name="endereco" autocomplete="street-address"></div>
+            <div class="field"><label for="complemento">Complemento ou apto.</label><input id="complemento" name="complemento"></div>
+            <div class="field"><label for="bairro">Bairro</label><input id="bairro" name="bairro"></div>
+            <div class="field"><label for="cidade">Cidade</label><input id="cidade" name="cidade" autocomplete="address-level2"></div>
+            <div class="field"><label for="estado">Estado</label><input id="estado" name="estado" maxlength="2" placeholder="SP" autocomplete="address-level1" style="text-transform:uppercase"></div>
+          </div>
+        </fieldset>
+
+        <div class="lt-note">Enviando em nome de <strong>empresa</strong>? Anexe a nota fiscal de remessa para conserto e preencha os dados abaixo.</div>
+
+        <fieldset>
+          <legend>Empresa, se for o caso</legend>
+          <div class="form-grid">
+            <div class="field"><label for="cnpj">CNPJ</label><input id="cnpj" name="cnpj" inputmode="numeric" data-mask="cnpj" placeholder="00.000.000/0000-00"></div>
+            <div class="field"><label for="ie">Inscrição estadual</label><input id="ie" name="ie"></div>
+            <div class="field full"><label for="contato_empresa">Pessoa de contato e celular</label><input id="contato_empresa" name="contato_empresa"></div>
+          </div>
+        </fieldset>
+
+        <div class="sign"><div>Local e data</div><div>Assinatura</div></div>
+      </form>
+
+      <div class="letter-tools">
+        <button type="button" class="btn btn-red" id="printBtn">Imprimir carta</button>
+        <button type="button" class="btn btn-ghost" id="clearBtn">Limpar campos</button>
+        <a class="btn btn-ghost" href="como-enviar.html">Voltar às instruções</a>
+      </div>
+      <p class="letter-tools hint" id="printMsg" role="status" style="margin-top:12px"></p>
+    </div>
+  </section>
+</main>
+
+<footer id="site-footer"></footer>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/masks.js"></script>
+<script>
+(function () {
+  var form = document.getElementById('carta');
+  var KEY = 'namba-carta-rascunho';
+  var msg = document.getElementById('printMsg');
+
+  // Rascunho: guarda o que foi digitado neste navegador.
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY) || '{}');
+    Object.keys(saved).forEach(function (k) { if (form.elements[k]) form.elements[k].value = saved[k]; });
+  } catch (e) {}
+  form.addEventListener('input', function () {
+    var data = {};
+    Array.prototype.forEach.call(form.elements, function (el) { if (el.name) data[el.name] = el.value; });
+    try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {}
+  });
+
+  document.getElementById('printBtn').addEventListener('click', function () {
+    var nome = form.elements.nome;
+    if (!nome.value.trim()) {
+      nome.setAttribute('aria-invalid', 'true'); nome.focus();
+      msg.textContent = 'Preencha o nome completo antes de imprimir.';
+      return;
+    }
+    nome.removeAttribute('aria-invalid');
+    msg.textContent = 'Se a janela de impressão não abrir nesta prévia, abra o site pelos arquivos do projeto: lá ela funciona normalmente.';
+    window.print();
+  });
+
+  document.getElementById('clearBtn').addEventListener('click', function () {
+    form.reset();
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    msg.textContent = 'Campos limpos.';
+  });
+
+  // Preenche o endereço pelo CEP (ViaCEP). Se não houver conexão, o cliente digita.
+  var cep = form.elements.cep, status = document.getElementById('cepStatus');
+  cep.addEventListener('input', function () {
+    var d = cep.value.replace(/\D/g, '');
+    if (d.length !== 8) { status.textContent = ''; return; }
+    status.textContent = 'Buscando endereço…';
+    fetch('https://viacep.com.br/ws/' + d + '/json/')
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (j.erro) { status.textContent = 'CEP não encontrado. Preencha o endereço.'; return; }
+        form.elements.endereco.value = j.logradouro || '';
+        form.elements.bairro.value = j.bairro || '';
+        form.elements.cidade.value = j.localidade || '';
+        form.elements.estado.value = j.uf || '';
+        status.textContent = 'Endereço preenchido. Complete com o número.';
+        form.dispatchEvent(new Event('input'));
+        form.elements.endereco.focus();
+      })
+      .catch(function () { status.textContent = 'Não foi possível buscar o CEP. Preencha o endereço.'; });
+  });
+})();
+</script>
+</body>
+</html>

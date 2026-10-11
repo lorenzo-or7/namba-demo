@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Ordens de serviço | Equipe Namba</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/admin.css">
+<script>try{var t=localStorage.getItem('namba-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body data-admin="dashboard" data-no-wa>
+<div id="admin-bar"></div>
+<main class="wrap admin-main">
+  <div id="admin-proto"></div>
+  <div id="flash" class="flash"></div>
+  <div class="admin-title">
+    <div><h1>Ordens de serviço</h1><p id="countLine"></p></div>
+    <a class="btn btn-red" href="nova-os.html">Nova O.S.</a>
+  </div>
+
+  <div class="summary" id="summary" aria-label="Filtrar por status"></div>
+
+  <form class="filters" id="filters" role="search">
+    <label class="sr-only" for="fStatus">Status</label>
+    <select class="input" id="fStatus" name="status"><option value="">Todos os status</option></select>
+    <label class="sr-only" for="fBusca">Buscar</label>
+    <input class="input" id="fBusca" name="busca" type="search" placeholder="Buscar por O.S., cliente ou equipamento">
+    <button type="button" class="btn btn-ghost btn-sm" id="fClear" hidden>Limpar filtros</button>
+  </form>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>O.S.</th><th>Cliente</th><th>Equipamento</th><th>Status</th><th>Entrada</th><th>Atualizada em</th><th><span class="sr-only">Ações</span></th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+</main>
+<script src="../assets/js/demo-db.js"></script>
+<script src="../assets/js/admin.js"></script>
+<script>
+(function () {
+  if (!window.NambaAdmin) return;
+  var DB = window.NambaDB, A = window.NambaAdmin, esc = DB.esc;
+  A.showFlash(document.getElementById('flash'));
+  var sel = document.getElementById('fStatus'), busca = document.getElementById('fBusca'), clear = document.getElementById('fClear');
+  Object.keys(DB.STATUS).forEach(function (k) { sel.insertAdjacentHTML('beforeend', '<option value="' + k + '">' + DB.STATUS[k] + '</option>'); });
+
+  // filtro lembrado durante a sessão
+  try { var saved = JSON.parse(sessionStorage.getItem('namba-dash-filter') || '{}'); sel.value = saved.status || ''; busca.value = saved.busca || ''; } catch (e) {}
+
+  function summary() {
+    var all = DB.listarOrdens({}), counts = {};
+    all.forEach(function (o) { counts[o.status_atual] = (counts[o.status_atual] || 0) + 1; });
+    var html = '<button type="button" data-s="" aria-pressed="' + (!sel.value) + '">Todas <b>' + all.length + '</b></button>';
+    Object.keys(DB.STATUS).forEach(function (k) {
+      if (!counts[k]) return;
+      html += '<button type="button" data-s="' + k + '" aria-pressed="' + (sel.value === k) + '"><span class="dot ' + DB.statusClass(k) + '" style="background:currentColor"></span>' + DB.STATUS[k] + ' <b>' + counts[k] + '</b></button>';
+    });
+    document.getElementById('summary').innerHTML = html;
+  }
+
+  function render() {
+    var f = { status: sel.value, busca: busca.value.trim() };
+    try { sessionStorage.setItem('namba-dash-filter', JSON.stringify(f)); } catch (e) {}
+    clear.hidden = !f.status && !f.busca;
+    var rows = DB.listarOrdens(f);
+    document.getElementById('countLine').textContent = rows.length + (rows.length === 1 ? ' ordem encontrada' : ' ordens encontradas') + ', da atualização mais recente para a mais antiga.';
+    document.getElementById('rows').innerHTML = rows.length ? rows.map(function (o) {
+      return '<tr><td class="num"><a class="row-link" href="editar-os.html#' + o.id + '" data-id="' + o.id + '">' + esc(o.numero_os) + '</a></td>' +
+        '<td>' + esc(o.cliente_nome) + '</td><td>' + esc(o.equipamento) + '</td>' +
+        '<td><span class="badge ' + DB.statusClass(o.status_atual) + '">' + esc(DB.statusLabel(o.status_atual)) + '</span></td>' +
+        '<td class="nowrap">' + DB.formatDateBr(o.data_entrada) + '</td><td class="nowrap">' + DB.formatDateTimeBr(o.atualizado_em) + '</td>' +
+        '<td><a class="btn btn-line btn-sm" href="editar-os.html#' + o.id + '" data-id="' + o.id + '">Editar</a></td></tr>';
+    }).join('') : '<tr><td colspan="7"><div class="empty">Nenhuma ordem de serviço com esses filtros. <a href="nova-os.html">Cadastrar uma nova O.S.</a></div></td></tr>';
+    summary();
+  }
+
+  document.getElementById('summary').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-s]'); if (!b) return;
+    sel.value = b.dataset.s; render();
+  });
+  document.getElementById('rows').addEventListener('click', function (e) {
+    var a = e.target.closest('a[data-id]'); if (!a) return;
+    e.preventDefault(); A.goEdit(a.dataset.id);
+  });
+  sel.addEventListener('change', render);
+  busca.addEventListener('input', render);
+  document.getElementById('filters').addEventListener('submit', function (e) { e.preventDefault(); render(); });
+  clear.addEventListener('click', function () { sel.value = ''; busca.value = ''; render(); busca.focus(); });
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tire suas dúvidas | Namba</title>
+<meta name="description" content="Converse com a Carmen, assistente virtual da Namba, sobre envio, prazos, orçamento, garantia e pagamento.">
+<meta name="carmen-base-url" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=localStorage.getItem('namba-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body data-base="" data-page="duvidas">
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<header id="site-header"></header>
+
+<main id="conteudo">
+  <section class="page-head page-head-center">
+    <div class="wrap">
+      <div class="crumbs"><a href="index.html">Início</a> / Dúvidas</div>
+      <h1>Pergunte para a Carmen</h1>
+      <p>A assistente virtual da Namba responde na hora as perguntas mais comuns sobre envio, prazos, orçamento, garantia e pagamento.</p>
+    </div>
+  </section>
+
+  <section class="band" style="padding-top:0">
+    <div class="wrap">
+      <div class="chat">
+        <div class="chat-inner">
+          <div class="chat-head">
+            <img src="assets/img/carmen-avatar.png" width="240" height="240" alt="">
+            <div><strong>Carmen</strong><span>Assistente virtual da Namba</span></div>
+          </div>
+          <div class="chat-log" id="carmenMessages" aria-live="polite"></div>
+          <div class="chips" id="carmenChips" aria-label="Perguntas frequentes"></div>
+          <form class="chat-form" id="carmenForm">
+            <label for="carmenInput" class="sr-only">Sua dúvida</label>
+            <input type="text" id="carmenInput" placeholder="Escreva sua dúvida" autocomplete="off">
+            <button type="submit" aria-label="Enviar pergunta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          </form>
+        </div>
+      </div>
+
+      <div class="chat-after">
+        <p><strong>Prefere falar com uma pessoa?</strong> Para casos específicos, fale direto com a equipe, de segunda a sexta, das 9h às 18h30.</p>
+        <div class="actions">
+          <a class="btn btn-red" href="https://whats.link/namba" target="_blank" rel="noopener">Falar pelo WhatsApp</a>
+          <a class="btn btn-ghost" href="tel:+551132597888">(11) 3259-7888</a>
+        </div>
+        <p class="caption">A Carmen responde por palavras-chave e não guarda seus dados.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="site-footer"></footer>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/carmen-bot.js"></script>
+</body>
+</html>
