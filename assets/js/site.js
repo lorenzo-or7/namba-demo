@@ -145,7 +145,9 @@
           '</ul></div>' +
         '</div>' +
         '<div class="foot-bottom"><span>© ' + new Date().getFullYear() + ' Cine Camera Service Ltda.</span><span>Protótipo de apresentação. Conteúdo e layout sujeitos a aprovação.</span></div>' +
+        '<div class="or7-sign" style="display:flex;justify-content:center;padding:28px 16px 6px;clear:both"><a href="https://lorenzo-or7.github.io" target="_blank" rel="noopener author" aria-label="Idealizado e desenvolvido por Lorenzo Orsetti (Or7)" style="display:block;width:min(300px,76%);opacity:.85;border:0"><img src="' + base + 'assets/img/or7-assinatura-clara.png" data-or7-light="' + base + 'assets/img/or7-assinatura-clara.png" data-or7-dark="' + base + 'assets/img/or7-assinatura-escura.png" alt="Or7 — Idealizado e desenvolvido por Lorenzo Orsetti" width="900" height="127" loading="lazy" style="display:block;width:100%;height:auto"></a></div>' +
       '</div>';
+    (function(){function lum(c){var m=c.match(/[\d.]+/g);if(!m||m.length<3)return null;if(m.length>3&&+m[3]<0.5)return null;return(0.2126*m[0]+0.7152*m[1]+0.0722*m[2])/255}function bg(el){while(el&&el.nodeType===1){var l=lum(getComputedStyle(el).backgroundColor);if(l!==null)return l;el=el.parentElement}return 1}function run(){document.querySelectorAll('img[data-or7-light]').forEach(function(i){var w=bg(i.parentElement)>0.5?i.getAttribute('data-or7-dark'):i.getAttribute('data-or7-light');if(i.getAttribute('src')!==w)i.setAttribute('src',w)})}run();addEventListener('load',run);var mo=new MutationObserver(function(){setTimeout(run,80)});[document.documentElement,document.body].forEach(function(n){mo.observe(n,{attributes:true,attributeFilter:['class','data-theme','style']})})})();
   }
 
   if (!body.hasAttribute('data-no-wa')) {
