@@ -14,7 +14,7 @@
 (function () {
   'use strict';
 
-  var KEY = 'namba-demo-db-v1';
+  var KEY = 'namba-demo-db-v2'; // v2: números de O.S. no formato do sistema atual (ex.: H32758)
   var memory = null; // fallback quando o localStorage está bloqueado
 
   /* ---------- utilidades (functions.php) ---------- */
@@ -77,11 +77,12 @@
     pronto_para_envio: 'Pronto para envio',
     enviado: 'Enviado ao cliente',
     finalizado: 'Finalizado',
-    cancelado: 'Cancelado'
+    cancelado: 'Cancelado',
+    devolvido_sem_reparo: 'Devolvido sem reparo'
   };
   function statusLabel(s) { return STATUS[s] || String(s).replace(/_/g, ' '); }
   function statusClass(s) {
-    if (s === 'cancelado') return 'st-cancel';
+    if (s === 'cancelado' || s === 'devolvido_sem_reparo') return 'st-cancel';
     if (s === 'finalizado' || s === 'enviado') return 'st-done';
     if (s === 'aguardando_pecas' || s === 'orcamento_enviado') return 'st-critical';
     return 'st-progress';
@@ -109,14 +110,16 @@
       { id: 6, nome: 'Carlos Eduardo Lima', cpf: '62819482112', telefone: '31988887766', email: 'cadu.lima@exemplo.com', criado_em: '2026-09-15T15:10:00' }
     ];
     var o = [
-      { id: 1, numero_os: 'NAMBA-2026-0035', cliente_id: 2, equipamento: 'PowerShot G7 X Mark II', numero_serie: '732051004821', defeito_relatado: 'Lente não recolhe ao desligar.', data_entrada: '2026-08-04', status_atual: 'finalizado', valor_orcamento: 640, observacoes_internas: 'Cliente retirou no balcão.', atualizado_em: '2026-08-28T17:02:00' },
-      { id: 2, numero_os: 'NAMBA-2026-0038', cliente_id: 3, equipamento: 'Câmera EOS 5D Mark IV', numero_serie: '052021001377', defeito_relatado: 'Erro 20 intermitente durante ensaios.', data_entrada: '2026-08-25', status_atual: 'enviado', valor_orcamento: 2150, observacoes_internas: 'PJ: NF de remessa recebida.', atualizado_em: '2026-09-29T10:15:00' },
-      { id: 3, numero_os: 'NAMBA-2026-0039', cliente_id: 4, equipamento: 'Objetiva EF 70-200mm f/4L IS USM', numero_serie: '4811002', defeito_relatado: 'Estabilizador fazendo ruído.', data_entrada: '2026-09-01', status_atual: 'cancelado', valor_orcamento: 1290, observacoes_internas: 'Cliente optou por não reparar.', atualizado_em: '2026-09-12T09:40:00' },
-      { id: 4, numero_os: 'NAMBA-2026-0041', cliente_id: 1, equipamento: 'Câmera EOS R6 Mark II', numero_serie: '083021009914', defeito_relatado: 'Obturador travando após queda leve.', data_entrada: '2026-09-22', status_atual: 'em_reparo', valor_orcamento: 1380, observacoes_internas: 'Conjunto do obturador em estoque.', atualizado_em: '2026-10-07T15:20:00' },
-      { id: 5, numero_os: 'NAMBA-2026-0042', cliente_id: 5, equipamento: 'Objetiva EF 24-70mm f/2.8L II USM', numero_serie: '7210004418', defeito_relatado: 'Zoom duro e foco automático falhando.', data_entrada: '2026-09-24', status_atual: 'aguardando_pecas', valor_orcamento: 1870, observacoes_internas: 'Flex do foco pedido ao Japão. Previsão 60 dias.', atualizado_em: '2026-10-02T11:05:00' },
-      { id: 6, numero_os: 'NAMBA-2026-0043', cliente_id: 6, equipamento: 'Flash Speedlite 600EX II-RT', numero_serie: '2410055', defeito_relatado: 'Não dispara em modo ETTL.', data_entrada: '2026-09-30', status_atual: 'orcamento_enviado', valor_orcamento: 520, observacoes_internas: null, atualizado_em: '2026-10-03T16:48:00' },
-      { id: 7, numero_os: 'NAMBA-2026-0044', cliente_id: 2, equipamento: 'Câmera EOS 90D', numero_serie: '153021004390', defeito_relatado: 'Limpeza de sensor e revisão geral.', data_entrada: '2026-10-08', status_atual: 'recebido', valor_orcamento: null, observacoes_internas: null, atualizado_em: '2026-10-08T10:30:00' },
-      { id: 8, numero_os: 'NAMBA-2026-0045', cliente_id: 3, equipamento: 'Câmera EOS R5', numero_serie: '013021008801', defeito_relatado: 'Mensagem de erro no visor eletrônico.', data_entrada: '2026-10-06', status_atual: 'em_analise', valor_orcamento: null, observacoes_internas: 'Verificar cabo flex do EVF.', atualizado_em: '2026-10-07T09:12:00' }
+      { id: 1, numero_os: 'H90035', cliente_id: 2, equipamento: 'PowerShot G7 X Mark II', tipo: 'Câmera compacta', numero_serie: '732051004821', defeito_relatado: 'Lente não recolhe ao desligar.', data_entrada: '2026-08-04', status_atual: 'finalizado', valor_orcamento: 640, observacoes_internas: 'Cliente retirou no balcão.', atualizado_em: '2026-08-28T17:02:00' },
+      { id: 2, numero_os: 'H90038', cliente_id: 3, equipamento: 'Câmera EOS 5D Mark IV', tipo: 'Câmera EOS', numero_serie: '052021001377', defeito_relatado: 'Erro 20 intermitente durante ensaios.', data_entrada: '2026-08-25', status_atual: 'enviado', valor_orcamento: 2150, observacoes_internas: 'PJ: NF de remessa recebida.', atualizado_em: '2026-09-29T10:15:00' },
+      { id: 3, numero_os: 'H90039', cliente_id: 4, equipamento: 'Objetiva EF 70-200mm f/4L IS USM', tipo: 'Objetiva', numero_serie: '4811002', defeito_relatado: 'Estabilizador fazendo ruído.', data_entrada: '2026-09-01', status_atual: 'cancelado', valor_orcamento: 1290, observacoes_internas: 'Cliente optou por não reparar.', atualizado_em: '2026-09-12T09:40:00' },
+      { id: 4, numero_os: 'H90041', cliente_id: 1, equipamento: 'Câmera EOS R6 Mark II', tipo: 'Câmera EOS', numero_serie: '083021009914', defeito_relatado: 'Obturador travando após queda leve.', data_entrada: '2026-09-22', status_atual: 'em_reparo', valor_orcamento: 1380, observacoes_internas: 'Conjunto do obturador em estoque.', atualizado_em: '2026-10-07T15:20:00' },
+      { id: 5, numero_os: 'H90042', cliente_id: 5, equipamento: 'Objetiva EF 24-70mm f/2.8L II USM', tipo: 'Objetiva', numero_serie: '7210004418', defeito_relatado: 'Zoom duro e foco automático falhando.', data_entrada: '2026-09-24', status_atual: 'aguardando_pecas', valor_orcamento: 1870, observacoes_internas: 'Flex do foco pedido ao Japão. Previsão 60 dias.', atualizado_em: '2026-10-02T11:05:00' },
+      { id: 6, numero_os: 'H90043', cliente_id: 6, equipamento: 'Flash Speedlite 600EX II-RT', tipo: 'Flash', numero_serie: '2410055', defeito_relatado: 'Não dispara em modo ETTL.', data_entrada: '2026-09-30', status_atual: 'orcamento_enviado', valor_orcamento: 520, observacoes_internas: null, atualizado_em: '2026-10-03T16:48:00' },
+      { id: 7, numero_os: 'H90044', cliente_id: 2, equipamento: 'Câmera EOS 90D', tipo: 'Câmera EOS', numero_serie: '153021004390', defeito_relatado: 'Limpeza de sensor e revisão geral.', data_entrada: '2026-10-08', status_atual: 'recebido', valor_orcamento: null, observacoes_internas: null, atualizado_em: '2026-10-08T10:30:00' },
+      { id: 9, numero_os: 'H90036', cliente_id: 4, equipamento: 'Câmera EOS 7D', tipo: 'Câmera EOS', numero_serie: '2180503377', defeito_relatado: 'Câmera molhada na chuva, não liga.', data_entrada: '2026-08-11', status_atual: 'devolvido_sem_reparo', valor_orcamento: null, observacoes_internas: 'Oxidação na placa principal; reparo inviável.', atualizado_em: '2026-08-20T14:30:00' },
+      { id: 10, numero_os: 'H90046', cliente_id: 6, equipamento: 'Objetiva EF 100mm f/2.8L Macro IS USM', tipo: 'Objetiva', numero_serie: '6410022', defeito_relatado: 'Foco automático lento.', data_entrada: '2026-10-09', status_atual: 'em_analise', valor_orcamento: null, observacoes_internas: null, atualizado_em: '2026-10-09T16:10:00', verificacao: true },
+      { id: 8, numero_os: 'H90045', cliente_id: 3, equipamento: 'Câmera EOS R5', tipo: 'Câmera EOS', numero_serie: '013021008801', defeito_relatado: 'Mensagem de erro no visor eletrônico.', data_entrada: '2026-10-06', status_atual: 'em_analise', valor_orcamento: null, observacoes_internas: 'Verificar cabo flex do EVF.', atualizado_em: '2026-10-07T09:12:00' }
     ];
     var h = [];
     var hid = 1;
@@ -149,6 +152,11 @@
     add(6, 'em_analise', null, '2026-10-01T11:00:00');
     add(6, 'orcamento_enviado', 'Aguardando sua aprovação por e-mail ou telefone.', '2026-10-03T16:48:00');
     add(7, 'recebido', 'Equipamento recebido para diagnóstico.', '2026-10-08T10:30:00');
+    add(9, 'recebido', 'Equipamento recebido para diagnóstico.', '2026-08-11T10:00:00');
+    add(9, 'em_analise', 'Sinais de oxidação na placa principal.', '2026-08-13T15:20:00');
+    add(9, 'devolvido_sem_reparo', 'Reparo inviável por oxidação. Equipamento devolvido ao cliente.', '2026-08-20T14:30:00');
+    add(10, 'recebido', 'Equipamento recebido para diagnóstico.', '2026-10-09T11:40:00');
+    add(10, 'em_analise', null, '2026-10-09T16:10:00');
     add(8, 'recebido', 'Equipamento recebido para diagnóstico.', '2026-10-06T14:25:00');
     add(8, 'em_analise', null, '2026-10-07T09:12:00');
 
@@ -210,27 +218,38 @@
     });
   }
 
-  /* Consulta pública: número da O.S. + CPF ou telefone (só dígitos). */
-  function consultarPublico(numero, documento) {
-    var n = String(numero || '').trim().toUpperCase(), d = onlyDigits(documento);
-    if (!n || !d) return null;
+  /* Consulta pública (modo demonstração): número da O.S. + CPF ou telefone.
+     Algumas O.S. fictícias pedem uma confirmação extra (últimos 4 dígitos
+     do telefone cadastrado) para demonstrar o estado "verificação necessária". */
+  function consultarPublico(numero, documento, verificacao) {
+    var n = String(numero || '').replace(/\s+/g, '').toUpperCase(), d = onlyDigits(documento);
+    if (!n || !d) return { status: 'not_found' };
     var db = load();
     for (var i = 0; i < db.ordens.length; i++) {
       var o = db.ordens[i];
       if (o.numero_os !== n) continue;
       var c = cliente(o.cliente_id);
-      if (c && (c.cpf === d || c.telefone === d)) return { os: o, cliente: c, historico: historicoDe(o.id, true) };
+      if (!c || (c.cpf !== d && c.telefone !== d)) continue;
+      if (o.verificacao) {
+        var v = onlyDigits(verificacao);
+        if (!v) return { status: 'verify', pergunta: 'Para proteger seus dados, confirme os 4 últimos dígitos do telefone cadastrado.' };
+        if (!c.telefone || c.telefone.slice(-4) !== v) return { status: 'verify', pergunta: 'Os dígitos não conferem. Confira os 4 últimos dígitos do telefone cadastrado.', erro: true };
+      }
+      return { status: 'ok', os: o, historico: historicoDe(o.id, true) };
     }
-    return null;
+    return { status: 'not_found' };
   }
 
   /* ---------- escrita ---------- */
+  /* Protótipo: próximo número no formato do sistema atual (1 letra + 5 dígitos).
+     Na versão real, o número vem do sistema interno da Namba. */
   function gerarNumeroOs() {
-    var ano = new Date().getFullYear(), prefixo = 'NAMBA-' + ano + '-', seq = 0;
+    var seq = 90000;
     load().ordens.forEach(function (o) {
-      if (o.numero_os.indexOf(prefixo) === 0) seq = Math.max(seq, parseInt(o.numero_os.slice(prefixo.length), 10));
+      var m = /^H(\d{5})$/.exec(o.numero_os);
+      if (m) seq = Math.max(seq, parseInt(m[1], 10));
     });
-    return prefixo + String(seq + 1).padStart(4, '0');
+    return 'H' + String(seq + 1).padStart(5, '0');
   }
 
   function parseValor(v) {
@@ -265,7 +284,7 @@
     }
     var o = {
       id: nextId(db.ordens), numero_os: gerarNumeroOs(), cliente_id: c.id,
-      equipamento: dados.equipamento, numero_serie: dados.numero_serie || null,
+      equipamento: dados.equipamento, tipo: dados.tipo || null, numero_serie: dados.numero_serie || null,
       defeito_relatado: dados.defeito_relatado, data_entrada: dados.data_entrada,
       status_atual: 'recebido', valor_orcamento: parseValor(dados.valor_orcamento),
       observacoes_internas: null, atualizado_em: nowIso()

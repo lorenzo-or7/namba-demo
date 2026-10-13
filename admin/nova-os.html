@@ -43,6 +43,7 @@
           <div class="field"><label for="equipamento">Equipamento</label><input id="equipamento" name="equipamento" placeholder="Ex.: Câmera EOS R6"></div>
           <div class="field"><label for="numero_serie">Número de série <span style="font-weight:400;color:var(--graphite)">(opcional)</span></label><input id="numero_serie" name="numero_serie"></div>
         </div>
+        <div class="field"><label for="tipo">Tipo de equipamento</label><select id="tipo" name="tipo"><option value="">Selecione</option><option>Câmera EOS</option><option>Objetiva</option><option>Flash</option><option>Câmera compacta</option><option>Outro</option></select><span class="hint">Aparece para o cliente na consulta da O.S.</span></div>
         <div class="field"><label for="defeito_relatado">Defeito relatado pelo cliente</label><textarea id="defeito_relatado" name="defeito_relatado" rows="4"></textarea></div>
         <div class="form-grid">
           <div class="field"><label for="data_entrada">Data de entrada</label><input id="data_entrada" name="data_entrada" type="date"></div>
@@ -53,6 +54,7 @@
     </section>
   </form>
 </main>
+<script src="../assets/js/config.js"></script>
 <script src="../assets/js/demo-db.js"></script>
 <script src="../assets/js/admin.js"></script>
 <script src="../assets/js/masks.js"></script>

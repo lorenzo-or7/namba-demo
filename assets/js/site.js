@@ -7,21 +7,45 @@
 (function () {
   'use strict';
 
-  /* Dados de contato num só lugar. */
+  /* Dados de contato vêm de assets/js/config.js (um lugar só). */
+  var CFG = window.NAMBA_CONFIG || {};
+  var C = CFG.contato || {};
+  var W = CFG.whatsapp || {};
   var NAMBA = window.NAMBA = {
-    phone: '(11) 3259-7888',
-    tel: '+551132597888',
-    email: 'atendimento@namba.com.br',
-    // Confirmar com a Namba qual é o link oficial do WhatsApp.
-    whatsapp: 'https://whats.link/namba',
-    instagram: 'https://www.instagram.com/cinecameraservice/',
-    facebook: 'https://www.facebook.com/cinecameraservice',
-    address1: 'Rua da Consolação, 331, 10º andar',
-    address2: 'Consolação, São Paulo – SP, 01301-905',
-    hours: 'Segunda a sexta, 9h às 18h30',
-    maps: 'https://www.google.com/maps/search/?api=1&query=Rua+da+Consola%C3%A7%C3%A3o+331+S%C3%A3o+Paulo',
-    waze: 'https://waze.com/ul?ll=-23.547793,-46.644485&navigate=yes'
+    cfg: CFG,
+    phone: C.telefone, tel: C.telefoneLink, email: C.email,
+    whatsapp: W.link,
+    instagram: C.instagram, facebook: C.facebook,
+    address1: C.endereco1, address2: C.endereco2,
+    hours: C.horario, closed: C.horarioFechado,
+    maps: C.maps, waze: C.waze
   };
+
+  /* WhatsApp com mensagem do contexto.
+     Só funciona com o número oficial configurado (config.js → whatsapp.numero).
+     Sem número, cai no link curto original, sem mensagem.
+     Nunca incluir CPF, telefone ou outros dados pessoais aqui. */
+  var WA_MSG = {
+    assistencia: 'Olá! Vim pelo site e gostaria de solicitar assistência para um equipamento Canon.',
+    orcamento: 'Olá! Vim pelo site e gostaria de um orçamento para {x}.',
+    envio: 'Olá! Vim pelo site e tenho uma dúvida sobre como enviar meu equipamento.',
+    os: 'Olá! Vim pelo site e gostaria de falar sobre a O.S. {x}.',
+    acessorios: 'Olá! Vim pelo site e gostaria de saber a disponibilidade de acessórios originais Canon.',
+    duvida: 'Olá! Vim pelo site e tenho uma dúvida.'
+  };
+  NAMBA.wa = function (ctx, extra) {
+    var num = W.numero && String(W.numero).replace(/\D/g, '');
+    if (!num) return W.link;
+    var msg = (WA_MSG[ctx] || WA_MSG.duvida).replace('{x}', extra || 'meu equipamento');
+    return 'https://wa.me/' + num + '?text=' + encodeURIComponent(msg);
+  };
+  function applyWa(scope) {
+    (scope || document).querySelectorAll('a[data-wa]').forEach(function (a) {
+      a.href = NAMBA.wa(a.getAttribute('data-wa'), a.getAttribute('data-wa-extra'));
+      a.target = '_blank'; a.rel = 'noopener';
+    });
+  }
+  NAMBA.applyWa = applyWa;
 
   var body = document.body;
   var base = body.getAttribute('data-base') || '';
@@ -71,7 +95,7 @@
       '<div class="wrap headbar">' +
         '<a class="brand" href="' + base + 'index.html" aria-label="Cine Camera Service, página inicial">' +
           '<span class="logotype"><span class="r">cine</span><span class="k">camera</span><span class="r">service</span></span>' +
-          '<small>Namba · Assistência Técnica Autorizada Canon</small>' +
+          '<small>Namba · Assistência técnica Canon desde 1966</small>' +
         '</a>' +
         '<nav class="main-nav" aria-label="Principal">' + navLinks('') + '</nav>' +
         '<div class="head-tools">' +
@@ -84,7 +108,7 @@
         navLinks('nav-link') +
         '<a class="nav-link" href="' + base + 'consultar-os.html">Acompanhar O.S.</a>' +
         '<div class="actions">' +
-          '<a class="btn btn-red btn-block" href="' + NAMBA.whatsapp + '" target="_blank" rel="noopener">' + ICON.wa + 'Falar pelo WhatsApp</a>' +
+          '<a class="btn btn-red btn-block" href="' + NAMBA.whatsapp + '" data-wa="assistencia" target="_blank" rel="noopener">' + ICON.wa + 'Falar pelo WhatsApp</a>' +
           '<a class="btn btn-line btn-block" href="tel:' + NAMBA.tel + '">Ligar ' + NAMBA.phone + '</a>' +
         '</div>' +
       '</nav>';
@@ -121,21 +145,22 @@
         '<div class="foot-grid">' +
           '<div class="foot-brand">' +
             '<span class="logotype"><span class="r">cine</span><span class="k">camera</span><span class="r">service</span></span>' +
-            '<p>Cine Camera Service Ltda. Assistência técnica autorizada Canon em São Paulo desde 1966.</p>' +
+            '<p>Cine Camera Service Ltda. Assistência técnica especializada em equipamentos fotográficos Canon, em São Paulo desde 1966.</p>' +
             '<img src="' + base + 'assets/img/selo-50-anos-novo.png" alt="Selo comemorativo de 50 anos, 1966 a 2016" loading="lazy">' +
           '</div>' +
           '<div><h2>Endereço</h2><address>' + NAMBA.address1 + '<br>' + NAMBA.address2 + '</address></div>' +
           '<div><h2>Atendimento</h2><ul>' +
             '<li><a href="tel:' + NAMBA.tel + '">' + NAMBA.phone + '</a></li>' +
             '<li><a href="mailto:' + NAMBA.email + '">' + NAMBA.email + '</a></li>' +
-            '<li>' + NAMBA.hours + '</li><li>Fechado aos sábados, domingos e feriados</li></ul>' +
+            '<li>' + NAMBA.hours + '</li><li>' + NAMBA.closed + '</li></ul>' +
             '<div class="social">' +
               '<a href="' + NAMBA.instagram + '" target="_blank" rel="noopener" aria-label="Instagram">' + ICON.ig + '</a>' +
               '<a href="' + NAMBA.facebook + '" target="_blank" rel="noopener" aria-label="Facebook">' + ICON.fb + '</a>' +
-              '<a href="' + NAMBA.whatsapp + '" target="_blank" rel="noopener" aria-label="WhatsApp">' + ICON.wa + '</a>' +
+              '<a href="' + NAMBA.whatsapp + '" data-wa="duvida" target="_blank" rel="noopener" aria-label="WhatsApp">' + ICON.wa + '</a>' +
             '</div>' +
           '</div>' +
           '<div><h2>Páginas</h2><ul>' +
+            '<li><a href="' + base + 'index.html#atendimento">Solicitar assistência</a></li>' +
             '<li><a href="' + base + 'index.html#servicos">Serviços</a></li>' +
             '<li><a href="' + base + 'como-enviar.html">Como enviar</a></li>' +
             '<li><a href="' + base + 'carta-envio.html">Carta de envio</a></li>' +
@@ -144,19 +169,34 @@
             '<li><a href="' + base + 'admin/login.html">Área da equipe</a></li>' +
           '</ul></div>' +
         '</div>' +
-        '<div class="foot-bottom"><span>© ' + new Date().getFullYear() + ' Cine Camera Service Ltda.</span><span>Protótipo de apresentação. Conteúdo e layout sujeitos a aprovação.</span></div>' +
+        '<div class="foot-bottom"><span>© ' + new Date().getFullYear() + ' Cine Camera Service Ltda.</span><span>Protótipo de apresentação. Conteúdo sujeito a validação da Cine Camera Service.</span></div>' +
         '<div class="or7-sign" style="display:flex;justify-content:center;padding:28px 16px 6px;clear:both"><a href="https://lorenzo-or7.github.io" target="_blank" rel="noopener author" aria-label="Idealizado e desenvolvido por Lorenzo Orsetti (Or7)" style="display:block;width:min(300px,76%);opacity:.85;border:0"><img src="' + base + 'assets/img/or7-assinatura-clara.png" data-or7-light="' + base + 'assets/img/or7-assinatura-clara.png" data-or7-dark="' + base + 'assets/img/or7-assinatura-escura.png" alt="Or7 — Idealizado e desenvolvido por Lorenzo Orsetti" width="900" height="127" loading="lazy" style="display:block;width:100%;height:auto"></a></div>' +
       '</div>';
     (function(){function lum(c){var m=c.match(/[\d.]+/g);if(!m||m.length<3)return null;if(m.length>3&&+m[3]<0.5)return null;return(0.2126*m[0]+0.7152*m[1]+0.0722*m[2])/255}function bg(el){while(el&&el.nodeType===1){var l=lum(getComputedStyle(el).backgroundColor);if(l!==null)return l;el=el.parentElement}return 1}function run(){document.querySelectorAll('img[data-or7-light]').forEach(function(i){var w=bg(i.parentElement)>0.5?i.getAttribute('data-or7-dark'):i.getAttribute('data-or7-light');if(i.getAttribute('src')!==w)i.setAttribute('src',w)})}run();addEventListener('load',run);var mo=new MutationObserver(function(){setTimeout(run,80)});[document.documentElement,document.body].forEach(function(n){mo.observe(n,{attributes:true,attributeFilter:['class','data-theme','style']})})})();
   }
 
-  if (!body.hasAttribute('data-no-wa')) {
-    var wa = document.createElement('a');
-    wa.className = 'wa-float';
-    wa.href = NAMBA.whatsapp; wa.target = '_blank'; wa.rel = 'noopener';
-    wa.setAttribute('aria-label', 'Falar pelo WhatsApp');
-    wa.innerHTML = ICON.wa + '<span>WhatsApp</span>';
-    body.appendChild(wa);
+  /* Carmen: um único botão flutuante (substitui o botão fixo do WhatsApp).
+     O WhatsApp aparece dentro da conversa, quando faz sentido. */
+  if (!body.hasAttribute('data-no-wa') && !body.hasAttribute('data-no-carmen')) {
+    var launcher = document.createElement('button');
+    launcher.type = 'button';
+    launcher.className = 'carmen-launcher';
+    launcher.setAttribute('aria-haspopup', 'dialog');
+    launcher.setAttribute('aria-controls', 'carmenPanel');
+    launcher.setAttribute('aria-expanded', 'false');
+    launcher.innerHTML = '<img src="' + base + 'assets/img/carmen-avatar.png" alt="" width="40" height="40"><span>Dúvidas? <b>Fale com a Carmen</b></span>';
+    body.appendChild(launcher);
+    var loading = false;
+    launcher.addEventListener('click', function () {
+      if (window.Carmen) { window.Carmen.toggle(launcher); return; }
+      if (loading) return;
+      loading = true;
+      var sc = document.createElement('script');
+      sc.src = base + 'assets/js/carmen-bot.js';
+      sc.onload = function () { window.Carmen.toggle(launcher); };
+      sc.onerror = function () { location.href = base + 'tira-duvidas.html'; };
+      document.head.appendChild(sc);
+    });
   }
 
   /* Formulário da etiqueta (home): leva o número para a página de consulta. */
@@ -164,9 +204,10 @@
   if (tagForm) {
     tagForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      var v = (document.getElementById('tagOs').value || '').trim().toUpperCase();
+      var v = (document.getElementById('tagOs').value || '').replace(/\s+/g, '').toUpperCase();
       try { sessionStorage.setItem('namba-os-prefill', v); } catch (err) {}
       location.href = base + 'consultar-os.html';
     });
   }
+  applyWa();
 })();

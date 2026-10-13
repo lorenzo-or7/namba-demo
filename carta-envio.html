@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Carta de envio | Namba</title>
-<meta name="description" content="Preencha e imprima a carta que acompanha o envio do seu equipamento para a assistência técnica autorizada Namba.">
+<title>Carta de envio do equipamento | Cine Camera Service</title>
+<meta name="description" content="Preencha em 4 etapas e imprima a carta que acompanha o envio da sua câmera, objetiva ou flash Canon para a Cine Camera Service / Namba.">
 <meta name="robots" content="noindex">
+<link rel="canonical" href="https://lorenzo-or7.github.io/namba-demo/carta-envio.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap">
@@ -20,133 +21,196 @@
   <section class="page-head">
     <div class="wrap has-fig">
       <div>
-      <div class="crumbs"><a href="index.html">Início</a> / <a href="como-enviar.html">Como enviar</a> / Carta de envio</div>
-      <h1>Carta de envio</h1>
-      <p>Preencha os campos, imprima e coloque a folha dentro da caixa, junto com o equipamento. Nada é enviado pela internet: os dados ficam só neste navegador até você imprimir.</p>
+        <div class="crumbs"><a href="index.html">Início</a> / <a href="como-enviar.html">Como enviar</a> / Carta de envio</div>
+        <h1>Carta de envio</h1>
+        <p>Preencha em quatro etapas, revise e imprima. A carta vai dentro da caixa, junto com o equipamento. Não envie por e-mail.</p>
       </div>
       <div class="page-fig" aria-hidden="true"><span class="fig fig-caliper-2"></span></div>
     </div>
   </section>
 
   <section class="band" style="padding-top:0">
-    <div class="wrap">
-      <form class="letter" id="carta" novalidate>
-        <div class="lt-head">
-          <img src="assets/img/logo-cinecameraservice.png" width="372" height="61" alt="Cine Camera Service">
-          <address>Cine Camera Service Ltda.<br>Rua da Consolação, 331, 10º andar<br>01301-905, São Paulo – SP<br>(11) 3259-7888</address>
+    <div class="wrap wiz-wrap">
+
+      <ol class="wiz-steps" id="wizSteps" aria-label="Etapas da carta">
+        <li><button type="button" data-go="1" aria-current="step"><span class="n">1</span><span class="t">Equipamento</span></button></li>
+        <li><button type="button" data-go="2" disabled><span class="n">2</span><span class="t">Seus dados</span></button></li>
+        <li><button type="button" data-go="3" disabled><span class="n">3</span><span class="t">Endereço</span></button></li>
+        <li><button type="button" data-go="4" disabled><span class="n">4</span><span class="t">Revisão</span></button></li>
+      </ol>
+      <div class="wiz-bar" aria-hidden="true"><span id="wizBar"></span></div>
+
+      <form id="carta" class="wiz" novalidate>
+        <div class="form-msg is-error" id="wizMsg" role="alert" hidden></div>
+
+        <!-- ===== Etapa 1 ===== -->
+        <fieldset class="wiz-step" data-step="1">
+          <legend><span class="wiz-kicker">Etapa 1 de 4</span>Equipamento</legend>
+          <div class="form-grid">
+            <div class="field full">
+              <label for="tipo_equip">Tipo de equipamento</label>
+              <select id="tipo_equip" name="tipo_equip">
+                <option value="">Selecione</option>
+                <option>Câmera EOS</option>
+                <option>Objetiva</option>
+                <option>Flash Speedlite</option>
+                <option>Câmera compacta (PowerShot ou IXUS)</option>
+                <option>Câmera com objetiva</option>
+                <option>Outro equipamento fotográfico Canon</option>
+              </select>
+              <span class="hint">Atendemos somente equipamentos fotográficos Canon.</span>
+            </div>
+            <div class="field">
+              <label for="modelo_camera">Modelo da câmera ou do flash</label>
+              <input id="modelo_camera" name="modelo_camera" placeholder="Ex.: Canon EOS R6 Mark II" autocomplete="off">
+            </div>
+            <div class="field">
+              <label for="modelo_objetiva">Modelo da objetiva, se houver</label>
+              <input id="modelo_objetiva" name="modelo_objetiva" placeholder="Ex.: EF 24-70mm f/2.8L II USM" autocomplete="off">
+            </div>
+            <div class="field">
+              <label for="numero_serie">Número de série <span class="opt">(se souber)</span></label>
+              <input id="numero_serie" name="numero_serie" autocomplete="off">
+              <span class="hint">Fica na base ou na etiqueta do equipamento.</span>
+            </div>
+            <div class="field full">
+              <label for="defeitos">Resumo do defeito</label>
+              <textarea id="defeitos" name="defeitos" rows="4" maxlength="800" placeholder="O que acontece, desde quando, e se houve queda ou contato com água." aria-describedby="defCount"></textarea>
+              <span class="hint" id="defCount">0 de 800 caracteres</span>
+            </div>
+            <fieldset class="field full checks">
+              <legend>Acessórios que vão junto <span class="opt">(só se tiverem relação com o defeito)</span></legend>
+              <div class="check-grid">
+                <label><input type="checkbox" name="acessorios" value="Bateria"> Bateria</label>
+                <label><input type="checkbox" name="acessorios" value="Carregador"> Carregador</label>
+                <label><input type="checkbox" name="acessorios" value="Cartão de memória"> Cartão de memória</label>
+                <label><input type="checkbox" name="acessorios" value="Tampa do corpo"> Tampa do corpo</label>
+                <label><input type="checkbox" name="acessorios" value="Tampas da objetiva"> Tampas da objetiva</label>
+              </div>
+              <label for="acessorios_outros" class="sr-only">Outros acessórios</label>
+              <input id="acessorios_outros" name="acessorios_outros" placeholder="Outro acessório (opcional)" autocomplete="off">
+              <span class="hint">Mande o equipamento apenas com as tampas de proteção. Com erro de cartão, baixe as fotos antes de enviar.</span>
+            </fieldset>
+          </div>
+        </fieldset>
+
+        <!-- ===== Etapa 2 ===== -->
+        <fieldset class="wiz-step" data-step="2" hidden>
+          <legend><span class="wiz-kicker">Etapa 2 de 4</span>Seus dados</legend>
+          <div class="seg" role="radiogroup" aria-label="Quem está enviando">
+            <label><input type="radio" name="tipo_cliente" value="pf" checked> Pessoa física</label>
+            <label><input type="radio" name="tipo_cliente" value="pj"> Empresa</label>
+          </div>
+          <div class="form-grid">
+            <div class="field full" id="f-nome">
+              <label for="nome"><span id="nomeLabel">Nome completo</span> <span class="req">obrigatório</span></label>
+              <input id="nome" name="nome" autocomplete="name" required aria-describedby="nome-err">
+              <span class="field-err" id="nome-err" hidden></span>
+            </div>
+            <div class="field pf-only" id="f-cpf">
+              <label for="cpf">CPF</label>
+              <input id="cpf" name="cpf" inputmode="numeric" data-mask="cpf" placeholder="000.000.000-00" aria-describedby="cpf-err">
+              <span class="field-err" id="cpf-err" hidden></span>
+            </div>
+            <div class="field pj-only" id="f-cnpj" hidden>
+              <label for="cnpj">CNPJ</label>
+              <input id="cnpj" name="cnpj" inputmode="numeric" data-mask="cnpj" placeholder="00.000.000/0000-00" aria-describedby="cnpj-err">
+              <span class="field-err" id="cnpj-err" hidden></span>
+            </div>
+            <div class="field pj-only" hidden>
+              <label for="ie">Inscrição estadual</label>
+              <input id="ie" name="ie" autocomplete="off">
+            </div>
+            <div class="field pj-only full" hidden>
+              <label for="contato_empresa">Pessoa de contato e celular</label>
+              <input id="contato_empresa" name="contato_empresa" placeholder="Ex.: Ana Souza, (11) 98765-4321" autocomplete="off">
+            </div>
+            <div class="field" id="f-fone">
+              <label for="fone">Telefone</label>
+              <input id="fone" name="fone" type="tel" inputmode="tel" data-mask="phone" autocomplete="tel" aria-describedby="fone-err">
+              <span class="field-err" id="fone-err" hidden></span>
+            </div>
+            <div class="field" id="f-celular">
+              <label for="celular">Celular</label>
+              <input id="celular" name="celular" type="tel" inputmode="tel" data-mask="phone" aria-describedby="celular-err">
+              <span class="field-err" id="celular-err" hidden></span>
+            </div>
+            <div class="field full" id="f-email">
+              <label for="email">E-mail</label>
+              <input id="email" name="email" type="email" autocomplete="email" aria-describedby="email-hint email-err">
+              <span class="hint" id="email-hint">O orçamento é enviado por e-mail.</span>
+              <span class="field-err" id="email-err" hidden></span>
+            </div>
+          </div>
+          <div class="callout pj-only" hidden>Empresas: anexe à carta a <strong>nota fiscal de remessa para conserto</strong>.</div>
+        </fieldset>
+
+        <!-- ===== Etapa 3 ===== -->
+        <fieldset class="wiz-step" data-step="3" hidden>
+          <legend><span class="wiz-kicker">Etapa 3 de 4</span>Endereço para devolução</legend>
+          <div class="form-grid">
+            <div class="field" id="f-cep">
+              <label for="cep">CEP</label>
+              <input id="cep" name="cep" inputmode="numeric" data-mask="cep" placeholder="00000-000" autocomplete="postal-code" aria-describedby="cep-status cep-err">
+              <span class="hint" id="cep-status" aria-live="polite">Ao completar o CEP, buscamos o endereço no ViaCEP. Só o CEP é enviado.</span>
+              <span class="field-err" id="cep-err" hidden></span>
+            </div>
+            <div class="field full">
+              <label for="endereco">Rua e número</label>
+              <input id="endereco" name="endereco" autocomplete="address-line1">
+            </div>
+            <div class="field">
+              <label for="complemento">Complemento <span class="opt">(opcional)</span></label>
+              <input id="complemento" name="complemento" autocomplete="address-line2">
+            </div>
+            <div class="field">
+              <label for="bairro">Bairro</label>
+              <input id="bairro" name="bairro">
+            </div>
+            <div class="field">
+              <label for="cidade">Cidade</label>
+              <input id="cidade" name="cidade" autocomplete="address-level2">
+            </div>
+            <div class="field" id="f-estado">
+              <label for="estado">Estado</label>
+              <select id="estado" name="estado" autocomplete="address-level1">
+                <option value="">Selecione</option>
+                <option>AC</option><option>AL</option><option>AP</option><option>AM</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MT</option><option>MS</option><option>MG</option><option>PA</option><option>PB</option><option>PR</option><option>PE</option><option>PI</option><option>RJ</option><option>RN</option><option>RS</option><option>RO</option><option>RR</option><option>SC</option><option>SP</option><option>SE</option><option>TO</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- ===== Etapa 4 ===== -->
+        <div class="wiz-step" data-step="4" hidden>
+          <h2 class="wiz-legend" tabindex="-1"><span class="wiz-kicker">Etapa 4 de 4</span>Revise antes de imprimir</h2>
+          <div id="review" class="review"></div>
+          <div class="callout">
+            <strong>Antes de fechar a caixa:</strong> coloque a carta impressa e o equipamento num saquinho plástico vedado, use bastante plástico-bolha e deixe o equipamento bem no meio da caixa. <a href="como-enviar.html">Ver todas as instruções</a>
+          </div>
+          <p class="hint print-hint">Na janela de impressão, escolha “Salvar como PDF” se quiser guardar uma cópia. Papel A4.</p>
         </div>
-        <h2>Carta de envio de equipamento</h2>
-        <p class="lt-sub">Imprima e envie junto com o equipamento. Não mande esta carta por e-mail.</p>
 
-        <fieldset>
-          <legend>Equipamento</legend>
-          <div class="form-grid">
-            <div class="field full"><label for="modelo_camera">Modelo da câmera ou do flash</label><input id="modelo_camera" name="modelo_camera" placeholder="Ex.: EOS R6 Mark II"></div>
-            <div class="field full"><label for="modelo_objetiva">Modelo da objetiva, se houver</label><input id="modelo_objetiva" name="modelo_objetiva" placeholder="Ex.: EF 24-70mm f/2.8L II USM"></div>
-            <div class="field full"><label for="defeitos">Resumo do defeito</label><textarea id="defeitos" name="defeitos" rows="4" placeholder="O que acontece, desde quando, e se houve queda ou contato com água."></textarea></div>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>Seus dados</legend>
-          <div class="form-grid">
-            <div class="field full"><label for="nome">Nome completo *</label><input id="nome" name="nome" required autocomplete="name"></div>
-            <div class="field"><label for="cpf">CPF</label><input id="cpf" name="cpf" inputmode="numeric" data-mask="cpf" placeholder="000.000.000-00"></div>
-            <div class="field"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email"></div>
-            <div class="field"><label for="fone">Telefone</label><input id="fone" name="fone" inputmode="tel" data-mask="phone" autocomplete="tel"></div>
-            <div class="field"><label for="celular">Celular</label><input id="celular" name="celular" inputmode="tel" data-mask="phone"></div>
-            <div class="field"><label for="cep">CEP</label><input id="cep" name="cep" inputmode="numeric" data-mask="cep" placeholder="00000-000" autocomplete="postal-code"><span class="cep-status" id="cepStatus" aria-live="polite"></span></div>
-            <div class="field"><label for="endereco">Endereço e número</label><input id="endereco" name="endereco" autocomplete="street-address"></div>
-            <div class="field"><label for="complemento">Complemento ou apto.</label><input id="complemento" name="complemento"></div>
-            <div class="field"><label for="bairro">Bairro</label><input id="bairro" name="bairro"></div>
-            <div class="field"><label for="cidade">Cidade</label><input id="cidade" name="cidade" autocomplete="address-level2"></div>
-            <div class="field"><label for="estado">Estado</label><input id="estado" name="estado" maxlength="2" placeholder="SP" autocomplete="address-level1" style="text-transform:uppercase"></div>
-          </div>
-        </fieldset>
-
-        <div class="lt-note">Enviando em nome de <strong>empresa</strong>? Anexe a nota fiscal de remessa para conserto e preencha os dados abaixo.</div>
-
-        <fieldset>
-          <legend>Empresa, se for o caso</legend>
-          <div class="form-grid">
-            <div class="field"><label for="cnpj">CNPJ</label><input id="cnpj" name="cnpj" inputmode="numeric" data-mask="cnpj" placeholder="00.000.000/0000-00"></div>
-            <div class="field"><label for="ie">Inscrição estadual</label><input id="ie" name="ie"></div>
-            <div class="field full"><label for="contato_empresa">Pessoa de contato e celular</label><input id="contato_empresa" name="contato_empresa"></div>
-          </div>
-        </fieldset>
-
-        <div class="sign"><div>Local e data</div><div>Assinatura</div></div>
+        <div class="wiz-nav">
+          <button type="button" class="btn btn-ghost" id="prevBtn" hidden>Voltar</button>
+          <span class="wiz-spacer"></span>
+          <button type="button" class="btn btn-ghost" id="clearBtn">Limpar dados</button>
+          <button type="button" class="btn btn-red" id="nextBtn">Continuar</button>
+          <button type="button" class="btn btn-red" id="printBtn" hidden>Imprimir carta</button>
+        </div>
+        <p class="privacy wiz-privacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Os dados ficam só neste navegador, enquanto a aba estiver aberta, e não são enviados para a Namba nem para outros serviços. A única consulta externa é o CEP, no ViaCEP.</p>
       </form>
-
-      <div class="letter-tools">
-        <button type="button" class="btn btn-red" id="printBtn">Imprimir carta</button>
-        <button type="button" class="btn btn-ghost" id="clearBtn">Limpar campos</button>
-        <a class="btn btn-ghost" href="como-enviar.html">Voltar às instruções</a>
-      </div>
-      <p class="letter-tools hint" id="printMsg" role="status" style="margin-top:12px"></p>
     </div>
   </section>
+
+  <!-- ===== Documento para impressão (A4) ===== -->
+  <article class="carta-doc" id="cartaDoc" aria-hidden="true"></article>
 </main>
 
 <footer id="site-footer"></footer>
+<script src="assets/js/config.js"></script>
 <script src="assets/js/site.js"></script>
 <script src="assets/js/masks.js"></script>
-<script>
-(function () {
-  var form = document.getElementById('carta');
-  var KEY = 'namba-carta-rascunho';
-  var msg = document.getElementById('printMsg');
-
-  // Rascunho: guarda o que foi digitado neste navegador.
-  try {
-    var saved = JSON.parse(localStorage.getItem(KEY) || '{}');
-    Object.keys(saved).forEach(function (k) { if (form.elements[k]) form.elements[k].value = saved[k]; });
-  } catch (e) {}
-  form.addEventListener('input', function () {
-    var data = {};
-    Array.prototype.forEach.call(form.elements, function (el) { if (el.name) data[el.name] = el.value; });
-    try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {}
-  });
-
-  document.getElementById('printBtn').addEventListener('click', function () {
-    var nome = form.elements.nome;
-    if (!nome.value.trim()) {
-      nome.setAttribute('aria-invalid', 'true'); nome.focus();
-      msg.textContent = 'Preencha o nome completo antes de imprimir.';
-      return;
-    }
-    nome.removeAttribute('aria-invalid');
-    msg.textContent = 'Se a janela de impressão não abrir nesta prévia, abra o site pelos arquivos do projeto: lá ela funciona normalmente.';
-    window.print();
-  });
-
-  document.getElementById('clearBtn').addEventListener('click', function () {
-    form.reset();
-    try { localStorage.removeItem(KEY); } catch (e) {}
-    msg.textContent = 'Campos limpos.';
-  });
-
-  // Preenche o endereço pelo CEP (ViaCEP). Se não houver conexão, o cliente digita.
-  var cep = form.elements.cep, status = document.getElementById('cepStatus');
-  cep.addEventListener('input', function () {
-    var d = cep.value.replace(/\D/g, '');
-    if (d.length !== 8) { status.textContent = ''; return; }
-    status.textContent = 'Buscando endereço…';
-    fetch('https://viacep.com.br/ws/' + d + '/json/')
-      .then(function (r) { return r.json(); })
-      .then(function (j) {
-        if (j.erro) { status.textContent = 'CEP não encontrado. Preencha o endereço.'; return; }
-        form.elements.endereco.value = j.logradouro || '';
-        form.elements.bairro.value = j.bairro || '';
-        form.elements.cidade.value = j.localidade || '';
-        form.elements.estado.value = j.uf || '';
-        status.textContent = 'Endereço preenchido. Complete com o número.';
-        form.dispatchEvent(new Event('input'));
-        form.elements.endereco.focus();
-      })
-      .catch(function () { status.textContent = 'Não foi possível buscar o CEP. Preencha o endereço.'; });
-  });
-})();
-</script>
+<script src="assets/js/carta.js"></script>
 </body>
 </html>
