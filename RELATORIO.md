@@ -89,6 +89,16 @@ Nenhum dado sensível fica no arquivo.
   endereço, WhatsApp, telefone).
 - Correção da escolha de resposta (palavra inteira e regra mais específica).
 - Quando não sabe, diz isso e oferece a equipe. Avisa que não consulta O.S.
+- Repertório ampliado (cerca de 60 assuntos): caixa original, embalagem, seguro,
+  rastreio, frete de ida e volta, carta sem impressora, bateria fraca, erro de cartão,
+  agendamento, fim de semana, retirada, onde achar o número da O.S., O.S. não encontrada,
+  aprovação e recusa do orçamento, orçamento que não chegou, importação de peças,
+  defeitos, queda e contato com água, venda de acessórios, outras marcas e produtos,
+  Jorge Namba e Dona Carmen, privacidade e "você é um robô?".
+- Perguntas sem confirmação nas fontes (Pix, boleto, estacionamento, metrô, garantia
+  do serviço, câmeras de filme, EOS R/RF, filmadoras, urgência, compra de usados) são
+  respondidas como "não tenho confirmado, fale com a equipe". Ficam na lista de validação.
+- Depois de cada resposta, sugestões de perguntas relacionadas; botão "Mais perguntas".
 - Abertura e fechamento animados, `Esc` fecha e devolve o foco, tela cheia no celular
   com ajuste ao teclado virtual.
 
@@ -145,6 +155,8 @@ contraste no tema escuro, estouro de largura em 320px e peso das imagens.
 | Horário | Site antigo: 9h às 18h30. Versão PHP: "horário comercial". Usado 9h às 18h30. |
 | WhatsApp oficial | Usado `whats.link/namba`. Falta o número para as mensagens prontas. |
 | Formas de pagamento | Transferência, depósito, Visa e Mastercard parcelado sem juros. Pix não é citado nas fontes. |
-| 60 anos em 2026 | Mantido o selo de 50 anos como registro de 2016. |
+| 60 anos em 2026 | Selo de 60 anos aplicado (foto da história e rodapé). Confirmar se são as versões finais aprovadas pela empresa. |
 | Campos obrigatórios da carta | Só o nome (como no original). A revisão recomenda modelo, defeito e um contato. |
+| Respostas da Carmen sem fonte | Pix/boleto, estacionamento e metrô, garantia do serviço, câmeras de filme, EOS R e lentes RF, filmadoras, atendimento urgente, compra de usados. Hoje ela encaminha para a equipe; com a confirmação, basta editar a regra em `carmen-bot.js`. |
+| Vitrine de acessórios | 9 produtos com nomes genéricos (sem código de modelo, preço ou estoque). Confirmar itens, nomes e se a vitrine deve ficar no site. |
 | Vídeos com marca "Pippit AI" | Fora das páginas; ficam em `assets/video`. |

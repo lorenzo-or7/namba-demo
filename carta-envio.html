@@ -69,9 +69,14 @@
               <input id="modelo_objetiva" name="modelo_objetiva" placeholder="Ex.: EF 24-70mm f/2.8L II USM" autocomplete="off">
             </div>
             <div class="field">
-              <label for="numero_serie">Número de série <span class="opt">(se souber)</span></label>
-              <input id="numero_serie" name="numero_serie" autocomplete="off">
-              <span class="hint">Fica na base ou na etiqueta do equipamento.</span>
+              <label for="numero_serie">Nº de série da câmera ou flash</label>
+              <input id="numero_serie" name="numero_serie" autocomplete="off" spellcheck="false" aria-describedby="serieHint">
+              <span class="hint" id="serieHint">Se souber. Fica na base ou na etiqueta do equipamento.</span>
+            </div>
+            <div class="field">
+              <label for="numero_serie_objetiva">Nº de série da objetiva</label>
+              <input id="numero_serie_objetiva" name="numero_serie_objetiva" autocomplete="off" spellcheck="false" aria-describedby="serieObjHint">
+              <span class="hint" id="serieObjHint">Se souber. Fica no corpo da objetiva, perto da baioneta.</span>
             </div>
             <div class="field full">
               <label for="defeitos">Resumo do defeito</label>

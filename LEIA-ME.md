@@ -16,6 +16,7 @@ estática).
 | `como-enviar.html` | `como-enviar.php` |
 | `carta-envio.html` | `carta-envio.php` (4 etapas, validação, CEP automático, carta A4 para imprimir ou salvar em PDF) |
 | `consultar-os.html` | `consultar-os.php` + `resultado-os.php` (estados de carregando, não encontrado, verificação, indisponível e resultado) |
+| `acessorios.html` | vitrine de acessórios do site original (demonstração: sem preço nem carrinho; cada item abre o WhatsApp com o nome do produto) |
 | `tira-duvidas.html` | `tira-duvidas.php` (Carmen em página cheia; nas demais páginas ela abre numa janela flutuante) |
 | `admin/login.html` | `admin/login.php` |
 | `admin/index.html` | `admin/dashboard.php` |
@@ -36,6 +37,7 @@ assets/js/os-service.js camada de consulta da O.S. (modo demonstração ou API r
 assets/js/consulta.js   tela de acompanhamento da O.S.
 assets/js/carta.js      carta de envio em etapas + documento A4
 assets/js/carmen-bot.js Carmen (página e janela flutuante)
+assets/js/acessorios.js filtro por categoria da vitrine de acessórios
 assets/js/home.js       abas dos equipamentos, certificado e prazos da página inicial
 assets/js/demo-db.js    dados FICTÍCIOS do modo demonstração e funções do painel
 assets/js/admin.js      exige login, barra do painel (auth.php + admin-header.php)
@@ -93,8 +95,11 @@ abre a conversa com a mensagem do contexto (orçamento, envio, O.S.).
 
 - Os vídeos em `assets/video` não são usados nas páginas. Eles têm a marca d'água "Pippit AI" no canto. Para não parecer
   feito por IA, vale exportar sem a marca ou trocar por vídeos reais da bancada.
-- Em 2026 a empresa completa **60 anos**. O selo de 50 anos foi mantido como
-  registro histórico (2016) na linha do tempo.
+- Em 2026 a empresa completa **60 anos**. O selo comemorativo está em
+  `assets/img/selo-60-anos.webp` (sobre a foto dos fundadores e no rodapé), com o
+  fundo preto removido para funcionar nos temas claro e escuro. A outra logo de 60 anos
+  (`logo-60-anos.webp`, com "Cine Camera Service") fica na pasta, sem uso. Os selos de 50 anos
+  continuam na pasta, sem uso; 2016 segue na linha do tempo.
 - Não usados no protótipo: `carmen-escritorio.jpg` (render de uma sala que não
   existe), `history-team.png` e `certificacao-canon.jpg` (duplicatas de fotos
   usadas em maior resolução), `logo50-light/dark.png`, `selo-50-anos-vermelho.png`,
