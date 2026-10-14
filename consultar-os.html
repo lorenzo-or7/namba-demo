@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Acompanhar ordem de serviço | Cine Camera Service</title>
+<meta name="description" content="Acompanhe o andamento do conserto do seu equipamento Canon na Cine Camera Service / Namba com o número da ordem de serviço.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://lorenzo-or7.github.io/namba-demo/consultar-os.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=localStorage.getItem('namba-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body data-base="" data-page="os">
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<header id="site-header"></header>
+
+<main id="conteudo">
+  <section class="page-head">
+    <div class="wrap has-fig">
+      <div>
+        <div class="crumbs"><a href="index.html">Início</a> / Acompanhar O.S.</div>
+        <h1 id="pageTitle">Acompanhe seu conserto</h1>
+        <p id="pageLead">Digite o número da ordem de serviço e o CPF ou telefone informado na entrada do equipamento para ver em que etapa ele está.</p>
+      </div>
+      <div class="page-fig" aria-hidden="true"><span class="fig fig-camera-on-stand"></span></div>
+    </div>
+  </section>
+
+  <section class="band" style="padding-top:0">
+    <div class="wrap">
+
+      <!-- ===== Consulta ===== -->
+      <div id="lookupView" class="lookup-grid">
+        <form class="panel lookup-form" id="lookupForm" novalidate aria-describedby="formStatus">
+          <div class="form-msg" id="formStatus" role="alert" aria-live="assertive" hidden></div>
+
+          <div class="field" id="fNumero">
+            <label for="numero_os">Número da O.S.</label>
+            <input id="numero_os" name="numero_os" autocomplete="off" spellcheck="false" autocapitalize="characters" inputmode="text" aria-describedby="numeroHint numeroErr" required>
+            <span class="hint" id="numeroHint">Está no comprovante de entrada e no e-mail do orçamento. Exemplo: <b class="os-example"></b></span>
+            <span class="field-err" id="numeroErr" hidden></span>
+          </div>
+
+          <div class="field" id="fDoc">
+            <label for="documento">CPF ou telefone cadastrado</label>
+            <input id="documento" name="documento" inputmode="numeric" autocomplete="off" aria-describedby="docHint docErr" required>
+            <span class="hint" id="docHint">O mesmo informado na entrada do equipamento. Ex.: 123.456.789-00 ou (11) 98765-4321.</span>
+            <span class="field-err" id="docErr" hidden></span>
+          </div>
+
+          <div class="field verify-field" id="fVerify" hidden>
+            <label for="verificacao">Confirmação de identidade</label>
+            <p class="hint" id="verifyQuestion"></p>
+            <input id="verificacao" name="verificacao" inputmode="numeric" maxlength="4" autocomplete="off" aria-describedby="verifyQuestion verifyErr">
+            <span class="field-err" id="verifyErr" hidden></span>
+          </div>
+
+          <div class="field" id="fCaptcha">
+            <label for="captcha" id="captchaLabel">Confirme que você não é um robô</label>
+            <div class="captcha"><span id="captchaQ" aria-hidden="true"></span><input id="captcha" name="captcha" inputmode="numeric" autocomplete="off" aria-describedby="captchaErr"></div>
+            <span class="field-err" id="captchaErr" hidden></span>
+          </div>
+
+          <button type="submit" class="btn btn-red btn-block" id="submitBtn"><span class="btn-label">Ver andamento do conserto</span><span class="spinner" aria-hidden="true"></span></button>
+          <p class="privacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Seus dados servem só para localizar a O.S. e não ficam registrados. Mostramos apenas informações do andamento, sem dados pessoais.</p>
+        </form>
+
+        <div class="lookup-side">
+          <div class="proto" id="protoBox">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/></svg>
+            <div>
+              <strong>Demonstração com dados fictícios.</strong> Este protótipo ainda não está ligado ao sistema da Namba. Escolha um exemplo para ver cada situação:
+              <ul class="demo-list">
+                <li><button type="button" data-os="H90041" data-doc="52601815906">H90041</button> em reparo</li>
+                <li><button type="button" data-os="H90043" data-doc="62819482112">H90043</button> aguardando aprovação</li>
+                <li><button type="button" data-os="H90042" data-doc="11976540098">H90042</button> aguardando peças</li>
+                <li><button type="button" data-os="H90038" data-doc="1132104455">H90038</button> finalizado e enviado</li>
+                <li><button type="button" data-os="H90036" data-doc="18609139034">H90036</button> devolvido sem reparo</li>
+                <li><button type="button" data-os="H90046" data-doc="62819482112">H90046</button> pede confirmação (dígitos: 7766)</li>
+                <li><button type="button" data-os="H99999" data-doc="12345678901">H99999</button> não encontrada</li>
+              </ul>
+              <label class="demo-toggle"><input type="checkbox" id="simDown"> Simular sistema indisponível</label>
+              <p class="demo-small">Limite de 5 consultas a cada 10 minutos. <button type="button" class="link-btn" id="resetRate">Zerar limite da demonstração</button></p>
+            </div>
+          </div>
+          <div class="side-help">
+            <h2>Não encontrou?</h2>
+            <ul class="ticks">
+              <li>Confira o número da O.S., com a letra inicial.</li>
+              <li>Use o CPF ou telefone informado na entrada. Para empresas, use o telefone cadastrado.</li>
+              <li><span>Ainda com dúvida, ligue para <a href="tel:+551132597888">(11) 3259-7888</a> ou fale pelo <a href="https://whats.link/namba" data-wa="os">WhatsApp</a>.</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== Carregando ===== -->
+      <div id="loadingView" class="os-skeleton" hidden aria-busy="true" aria-live="polite">
+        <span class="sr-only">Consultando a ordem de serviço…</span>
+        <div class="sk sk-line" style="width:120px"></div>
+        <div class="sk sk-title"></div>
+        <div class="sk sk-track"></div>
+        <div class="sk-grid"><div class="sk sk-box"></div><div class="sk sk-box"></div><div class="sk sk-box"></div></div>
+      </div>
+
+      <!-- ===== Indisponível ===== -->
+      <div id="downView" class="os-state" hidden tabindex="-1">
+        <h2>Não foi possível consultar agora</h2>
+        <p>O sistema de acompanhamento não respondeu. Seus dados não foram enviados a nenhum outro lugar. Tente de novo em alguns minutos ou fale com a equipe:</p>
+        <div class="actions">
+          <button type="button" class="btn btn-line" id="retryBtn">Tentar de novo</button>
+          <a class="btn btn-red" href="https://whats.link/namba" data-wa="os">Falar pelo WhatsApp</a>
+          <a class="btn btn-ghost" href="tel:+551132597888">(11) 3259-7888</a>
+        </div>
+      </div>
+
+      <!-- ===== Resultado ===== -->
+      <div id="resultView" class="os-result" hidden tabindex="-1"></div>
+    </div>
+  </section>
+</main>
+
+<footer id="site-footer"></footer>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/demo-db.js"></script>
+<script src="assets/js/os-service.js"></script>
+<script src="assets/js/consulta.js"></script>
+</body>
+</html>
