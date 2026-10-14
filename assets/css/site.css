@@ -311,7 +311,15 @@ p { margin: 0; }
 .hist-left { display: grid; gap: 28px; position: sticky; top: 96px; }
 .hist-photo { margin: 0; position: relative; }
 .hist-photo img.photo { width: 100%; border-radius: 2px; filter: saturate(.92); }
-.hist-photo .seal { position: absolute; right: -30px; top: -44px; width: 150px; height: auto; filter: drop-shadow(0 6px 10px rgba(0,0,0,.25)); }
+.hist-photo .seal { position: absolute; right: -30px; top: -56px; width: 150px; height: auto; padding: 10px; background: var(--sheet); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 8px 18px rgba(0,0,0,.22); }
+/* Logo de 60 anos: versão com texto escuro no tema claro, prateada no escuro. */
+.hist-photo .seal-dark { display: none; }
+:root[data-theme="dark"] .hist-photo .seal-light { display: none; }
+:root[data-theme="dark"] .hist-photo .seal-dark { display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .hist-photo .seal-light { display: none; }
+  :root:not([data-theme="light"]) .hist-photo .seal-dark { display: block; }
+}
 .hist-photo figcaption { font-size: 14px; color: var(--graphite); margin-top: 12px; }
 .hist-grid h2 { font-size: clamp(32px, 4.4vw, 52px); letter-spacing: -0.035em; margin-bottom: 28px; }
 .story { font-family: var(--f-serif); font-size: 21px; line-height: 1.62; display: grid; gap: 20px; max-width: 38rem; }
@@ -337,7 +345,7 @@ p { margin: 0; }
 .cert-dialog form { display: flex; justify-content: flex-end; margin-top: 12px; }
 @media (max-width: 760px) { .cert { grid-template-columns: minmax(0, 1fr); } .cert-zoom { max-width: 340px; } }
 @media (max-width: 880px) { .hist-grid { grid-template-columns: minmax(0, 1fr); } .hist-left { position: static; max-width: 520px; } }
-@media (max-width: 520px) { .years > div { grid-template-columns: 84px minmax(0, 1fr); } .years dt { font-size: 21px; } .hist-photo .seal { right: 4px; top: -30px; width: 112px; } }
+@media (max-width: 520px) { .years > div { grid-template-columns: 84px minmax(0, 1fr); } .years dt { font-size: 21px; } .hist-photo .seal { right: 4px; top: -40px; width: 112px; padding: 7px; } }
 @media (max-width: 420px) { .tag { padding-left: 46px; } .tag button { padding: 0 12px; } .tag input { letter-spacing: 0; } }
 
 /* ---------- envio (faixa escura) ---------- */
