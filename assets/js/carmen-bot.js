@@ -254,7 +254,7 @@
       a: 'Dona Carmen fundou a Cine Camera Service junto com Jorge Namba, em 1966. A história da família está na página inicial.',
       act: ['historia'] },
     { k: ['certificacao', 'certificado', 'auditoria', 'autorizada', 'autorizado', 'canon usa', 'credenciada', 'credenciado', 'oficial', 'assistencia oficial', 'confiavel', 'confianca'],
-      a: 'Somos uma assistência <strong>especializada</strong> em Canon desde 1966. Em 2015, recebemos nota máxima (cinco estrelas) numa auditoria técnica Canon USA, conforme certificado emitido pela Canon do Brasil naquele ano. É um documento histórico: ele não indica uma autorização vigente hoje. Para essa confirmação, fale com a equipe.',
+      a: 'Sim. Somos assistência técnica <strong>autorizada pela Canon</strong> desde 1966. Em 2015, também recebemos nota máxima (cinco estrelas) numa auditoria técnica Canon USA, conforme certificado emitido pela Canon do Brasil naquele ano.',
       act: ['historia', 'waDuvida'] },
     { k: ['privacidade', 'meus dados', 'dados pessoais', 'lgpd', 'cpf', 'seguro passar', 'guardam'],
       a: 'Eu não peço nem guardo dados pessoais: não escreva CPF ou telefone aqui. Na consulta de O.S., o CPF ou telefone serve só para localizar a ordem, e o resultado não mostra dados pessoais.',

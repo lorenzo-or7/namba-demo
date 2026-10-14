@@ -147,7 +147,7 @@
         '<div class="foot-grid">' +
           '<div class="foot-brand">' +
             '<span class="logotype"><span class="r">cine</span><span class="k">camera</span><span class="r">service</span></span>' +
-            '<p>Cine Camera Service Ltda. Assistência técnica especializada em equipamentos fotográficos Canon, em São Paulo desde 1966.</p>' +
+            '<p>Cine Camera Service Ltda. Assistência técnica autorizada pela Canon em equipamentos fotográficos, em São Paulo desde 1966.</p>' +
             '<img src="' + base + 'assets/img/selo-60-anos.webp" width="360" height="227" alt="Selo comemorativo de 60 anos, 1966 a 2026" loading="lazy">' +
           '</div>' +
           '<div><h2>Endereço</h2><address>' + NAMBA.address1 + '<br>' + NAMBA.address2 + '</address></div>' +

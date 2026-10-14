@@ -147,7 +147,7 @@ contraste no tema escuro, estouro de largura em 320px e peso das imagens.
 ## 6. Precisa de validação da Cine Camera Service
 | Ponto | Situação no site |
 |---|---|
-| Status de "assistência autorizada Canon" hoje | O site diz "especializada". A autorização só aparece ligada ao certificado de 2015. Se houver autorização vigente comprovada, dá para voltar ao termo. |
+| Status de "assistência autorizada Canon" hoje | Confirmado pela empresa em 14/10/2026: autorização vigente. O site voltou a dizer "autorizada pela Canon" (título, descrições, rodapé e Carmen). |
 | "Suporte direto da engenharia Canon" (texto do site antigo) | Retirado. Confirmar se pode ser afirmado. |
 | Formato do número da O.S. | Configurado como 1 letra + 5 números (`H32758`). |
 | Códigos de status do sistema interno | Desconhecidos; usado o mapa do protótipo. |
