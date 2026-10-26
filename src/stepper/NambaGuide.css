@@ -1,0 +1,162 @@
+/* Guia de envio: botão da página "Como enviar" e modal com o Stepper.
+   Usa as variáveis de cor do site (assets/css/site.css), então segue os
+   temas claro e escuro sozinho. */
+
+/* ---------- botão que abre o guia (secundário ao botão vermelho da carta) ---------- */
+.guide-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--sheet);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+.guide-card[hidden] { display: none; }
+.guide-card:hover { border-color: var(--ink); }
+.guide-card:focus-visible { outline: 2px solid var(--canon); outline-offset: 3px; }
+.guide-card-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--bench);
+  color: var(--canon);
+}
+.guide-card-icon svg { width: 22px; height: 22px; }
+.guide-card-text { display: grid; gap: 2px; min-width: 0; }
+.guide-card-text strong { font-size: 16px; font-weight: 600; line-height: 1.3; }
+.guide-card-text span { font-size: 14.5px; line-height: 1.45; color: var(--graphite); }
+.guide-card-arrow { display: grid; place-items: center; color: var(--graphite); transition: transform 0.2s, color 0.15s; }
+.guide-card-arrow svg { width: 18px; height: 18px; }
+.guide-card:hover .guide-card-arrow { transform: translateX(3px); color: var(--ink); }
+
+/* ---------- modal ---------- */
+.guide-dialog {
+  width: min(760px, calc(100% - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--sheet);
+  color: var(--ink);
+  font-family: var(--f-sans);
+  box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.55);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.guide-dialog::backdrop { background: rgba(10, 14, 12, 0.72); }
+@media (prefers-reduced-motion: no-preference) {
+  .guide-dialog[open] { animation: guide-in 0.32s cubic-bezier(0.22, 1, 0.36, 1); }
+  .guide-dialog[open]::backdrop { animation: guide-fade 0.25s ease-out; }
+}
+@keyframes guide-in { from { opacity: 0; transform: translateY(14px) scale(0.985); } }
+@keyframes guide-fade { from { opacity: 0; } }
+
+.guide-head {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px 16px;
+  background: var(--sheet);
+  border-bottom: 1px solid var(--line);
+}
+.guide-kicker { margin: 0 0 2px; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; color: var(--canon); }
+.guide-head h2 { margin: 0; font-size: 22px; line-height: 1.2; letter-spacing: -0.01em; }
+.guide-head h2:focus { outline: none; }
+.guide-head h2:focus-visible { outline: 2px solid var(--canon); outline-offset: 3px; }
+.guide-head-tools { display: flex; gap: 8px; flex: none; }
+.guide-head-tools .icon-btn { cursor: pointer; }
+.guide-body { padding: 20px 24px 24px; }
+
+/* ---------- Stepper com a identidade do site ---------- */
+.namba-guide { font-family: var(--f-sans); }
+.namba-guide .stepper__badge[data-status='active'] {
+  box-shadow: inset 0 0 0 1.5px var(--canon);
+  color: var(--canon);
+}
+.namba-guide .stepper__button { font-size: 14.5px; height: 42px; }
+
+/* ---------- conteúdo das etapas ---------- */
+.guide-step { color: var(--ink); font-size: 16px; line-height: 1.6; }
+.guide-step > * + * { margin-top: 12px; }
+.guide-step p { margin-bottom: 0; }
+.guide-count { margin: 0; font-size: 13px; font-weight: 600; color: var(--graphite); }
+.guide-step h3 { margin: 4px 0 0; font-size: 21px; line-height: 1.25; letter-spacing: -0.01em; }
+.guide-step h4 { margin: 18px 0 0; font-size: 16px; line-height: 1.35; }
+.guide-step h4 + p { margin-top: 4px; }
+.guide-step .callout { font-size: 15.5px; }
+.guide-step a:not(.btn) { color: inherit; text-decoration-color: var(--canon); text-underline-offset: 2px; }
+.guide-figure { margin: 14px 0 0; }
+.guide-figure img { display: block; width: 100%; height: auto; border-radius: var(--r); }
+.guide-figure figcaption { margin-top: 8px; font-size: 14.5px; line-height: 1.5; color: var(--graphite); }
+.guide-carta { display: grid; gap: 8px; justify-items: start; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+.guide-carta .btn svg { width: 18px; height: 18px; }
+.guide-hint { margin: 0; font-size: 14px; line-height: 1.5; color: var(--graphite); }
+.guide-list { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 10px; }
+.guide-list li {
+  position: relative;
+  padding: 12px 14px 12px 44px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--bench);
+  font-size: 15.5px;
+  line-height: 1.5;
+}
+.guide-list li::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  width: 18px;
+  height: 18px;
+  background: var(--canon);
+  -webkit-mask: var(--guide-tick) center / contain no-repeat;
+  mask: var(--guide-tick) center / contain no-repeat;
+}
+.guide-list {
+  --guide-tick: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M8 12.5l2.7 2.7L16.5 9.5'/%3E%3C/svg%3E");
+}
+
+/* ---------- conclusão ---------- */
+.guide-done { display: grid; justify-items: center; text-align: center; padding: 12px 0 4px; }
+.guide-done > * + * { margin-top: 10px; }
+.guide-done-mark {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--canon-fill);
+  color: var(--canon-ink);
+}
+.guide-done p { max-width: 30rem; color: var(--graphite); }
+.guide-done .actions { justify-content: center; margin-top: 18px; }
+.guide-wa { margin-top: 14px; font-size: 15px; color: var(--ink); text-decoration-color: var(--line); text-underline-offset: 3px; }
+.guide-wa:hover { text-decoration-color: currentColor; }
+
+/* ---------- celular ---------- */
+@media (max-width: 560px) {
+  .guide-dialog { width: calc(100% - 16px); max-height: calc(100dvh - 16px); }
+  .guide-head { padding: 14px 14px 12px; gap: 10px; }
+  .guide-head h2 { font-size: 19px; }
+  .guide-head-tools .icon-btn { width: 40px; height: 40px; }
+  .guide-body { padding: 14px 12px 16px; }
+  .guide-step h3 { font-size: 19px; }
+  .guide-done .actions .btn { width: 100%; }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "namba-demo",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Site da Cine Camera Service / Namba. HTML, CSS e JS estáticos; React só no guia de envio (Stepper do React Bits), compilado com Vite.",
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "watch": "vite build --watch",
+    "serve": "vite --open /namba-demo/como-enviar.html"
+  },
+  "dependencies": {
+    "@hugeicons/core-free-icons": "^4.3.5",
+    "@hugeicons/react": "^1.1.10",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "vite": "^8.3.5"
+  }
+}

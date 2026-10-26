@@ -1,0 +1,7 @@
+# dependências e cache do Vite (o build vai para assets/stepper/, que é versionado)
+node_modules/
+.vite/
+*.log
+.env
+.env.*
+.DS_Store
