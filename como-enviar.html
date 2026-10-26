@@ -14,6 +14,7 @@
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/stepper/guia-envio.css?v=1">
 <script>try{var t=localStorage.getItem('namba-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 </head>
 <body data-base="" data-page="como-enviar">
@@ -38,6 +39,12 @@
         <img src="assets/img/camera-embalada.jpg" width="960" height="640" loading="lazy" decoding="async" alt="Câmera Canon EOS dentro de uma caixa com plástico-bolha, com a carta de envio impressa ao lado">
         <p class="note">É assim que o equipamento deve chegar: bem no meio da caixa, cercado de plástico-bolha, com a carta de envio impressa dentro do saquinho.</p>
         <div class="callout"><strong>Não mande a carta por e-mail.</strong> Ela vai impressa, dentro da caixa, junto com o equipamento.</div>
+        <!-- Guia de envio (React, assets/stepper/guia-envio.js). Fica oculto até o script carregar; sem ele, a página funciona como antes. -->
+        <button type="button" class="guide-card" id="guiaEnvioBtn" aria-haspopup="dialog" hidden>
+          <span class="guide-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6a1 1 0 0 1 1 1v1H8V5a1 1 0 0 1 1-1z"/><path d="M8 5H6a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2"/><path d="M8.5 11.5l1.5 1.5 3-3"/><path d="M8.5 17h7"/></svg></span>
+          <span class="guide-card-text"><strong>Guia de envio passo a passo</strong><span>Siga as orientações para preparar e enviar seu equipamento com segurança.</span></span>
+          <span class="guide-card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
+        </button>
         <div class="actions">
           <a class="btn btn-red" href="carta-envio.html">Preencher a carta de envio</a>
           <a class="btn btn-ghost" href="https://whats.link/namba" data-wa="envio">Dúvida sobre o envio? WhatsApp</a>
@@ -66,6 +73,7 @@
 <footer id="site-footer"></footer>
 <script src="assets/js/config.js"></script>
 <script src="assets/js/site.js"></script>
+<script src="assets/stepper/guia-envio.js?v=1" defer></script>
 <script>(function(){var P=(window.NAMBA_CONFIG||{}).prazos||{};document.querySelectorAll("[data-prazo]").forEach(function(e){var v=P[e.getAttribute("data-prazo")];if(v)e.textContent=v;});})();</script>
 </body>
 </html>

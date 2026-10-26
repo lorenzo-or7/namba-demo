@@ -57,6 +57,39 @@ assets/fig/*.svg        ilustrações em traço
 4. A validação de captcha, o limite de tentativas e a verificação de identidade
    precisam ser feitos no servidor; no protótipo eles só simulam o comportamento.
 
+## Guia de envio passo a passo (React)
+
+A página `como-enviar.html` tem o botão **Guia de envio passo a passo**, que abre um
+modal com o [Stepper do React Bits](https://reactbits.dev/components/stepper). Só esse
+guia usa React; o resto do site continua em HTML, CSS e JS puro.
+
+- Código-fonte: `src/stepper/`
+  - `Stepper.jsx` e `Stepper.css`: componente original do React Bits. Mudanças
+    mínimas, marcadas com "Namba" no código: a prop `stepLabel` (rótulos "Etapa N"
+    para leitor de tela) e uma correção no glider, que deixava de deslizar a cada
+    troca de etapa.
+  - `NambaGuide.jsx` e `NambaGuide.css`: o modal, as 5 etapas (textos tirados da
+    própria página), as cores do site e a integração com o tema claro/escuro.
+  - `main.jsx`: monta o guia na página e reabre na etapa da carta quando a pessoa
+    volta do formulário (guarda só o número da etapa, na sessão do navegador).
+- Arquivos compilados (versionados, são eles que o GitHub Pages publica):
+  `assets/stepper/guia-envio.js` e `assets/stepper/guia-envio.css`.
+- Sem o JavaScript, o botão simplesmente não aparece e a página funciona como antes.
+
+Para alterar o guia (precisa do Node.js 20 ou mais novo):
+
+```
+npm ci            # instala as dependências exatas do package-lock.json
+npm run build     # gera assets/stepper/guia-envio.js e .css
+npm run watch     # (opcional) recompila a cada alteração
+npm run serve     # (opcional) abre o site em http://localhost:5173/namba-demo/
+```
+
+Depois do build, faça o commit de `src/stepper/` **e** de `assets/stepper/`. O GitHub
+Pages publica os arquivos do branch `main` como estão; ele não roda o build. A pasta
+`node_modules/` fica fora do repositório (`.gitignore`). Ao mudar o guia, aumente o
+`?v=` dos dois arquivos em `como-enviar.html` para o navegador não usar a versão antiga.
+
 ## Ilustrações
 
 As figuras em `assets/fig/` foram recortadas da imagem de referência,
@@ -95,11 +128,11 @@ abre a conversa com a mensagem do contexto (orçamento, envio, O.S.).
 
 - Os vídeos em `assets/video` não são usados nas páginas. Eles têm a marca d'água "Pippit AI" no canto. Para não parecer
   feito por IA, vale exportar sem a marca ou trocar por vídeos reais da bancada.
-- Em 2026 a empresa completa **60 anos**. O selo comemorativo está em
-  `assets/img/selo-60-anos.webp` (sobre a foto dos fundadores e no rodapé), com o
-  fundo preto removido para funcionar nos temas claro e escuro. A outra logo de 60 anos
-  (`logo-60-anos.webp`, com "Cine Camera Service") fica na pasta, sem uso. Os selos de 50 anos
-  continuam na pasta, sem uso; 2016 segue na linha do tempo.
+- Em 2026 a empresa completa **60 anos**. Os logos comemorativos ficam em
+  `assets/img/logo-60-anos-claro.webp` e `logo-60-anos-prata.webp` (sobre a foto dos
+  fundadores, conforme o tema) e `logo-60-anos-dourado.webp` (rodapé). Os selos antigos
+  (`selo-60-anos.webp`, `logo-60-anos.webp` e os de 50 anos) ficam na pasta, sem uso;
+  2016 segue na linha do tempo.
 - Não usados no protótipo: `carmen-escritorio.jpg` (render de uma sala que não
   existe), `history-team.png` e `certificacao-canon.jpg` (duplicatas de fotos
   usadas em maior resolução), `logo50-light/dark.png`, `selo-50-anos-vermelho.png`,
